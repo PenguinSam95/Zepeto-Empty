@@ -1,0 +1,22 @@
+{
+	"name": "zepeto.analytics",
+	"scope": "zepeto",
+	"displayName": "ZEPETO.Analytics",
+	"version": "1.2.0",
+	"unity": "2020.3",
+	"description": "In World Analytics for Zepeto Script",
+	"keywords": [
+		"zepeto",
+		"script",
+		"javascript",
+		"analytics"
+	],
+	"category": "Unity",
+	"hideInEditor": false,
+	"author": {
+		"name": "ZEPETO",
+		"email": "support@zepeto.me",
+		"url": "https://zepeto.me/"
+	},
+	"commitId": "cf6a64bc0984d4d8ff279a62a9d37d487a80b7e8"
+}

@@ -1,0 +1,21 @@
+{
+	"name": "zepeto.multiplay.script",
+	"scope": "zepeto",
+	"displayName": "ZEPETO.Multiplay.Script",
+	"version": "1.11.0",
+	"unity": "2020.3",
+	"description": "ZEPETO Multiplay.Script",
+	"keywords": [
+		"zepeto",
+		"multiplay"
+	],
+	"samples": [],
+	"category": "Unity",
+	"hideInEditor": false,
+	"author": {
+		"name": "ZEPETO",
+		"email": "support@zepeto.me",
+		"url": "https://zepeto.me/"
+	},
+	"commitId": "affe017131abae98bdb1fe188b20c3653c786d77"
+}
