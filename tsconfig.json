@@ -11,6 +11,7 @@
 			}
 		],
 		"types": [
+			"./Library/PackageCache/zepeto.analytics@1.2.0/Runtime",
 			"./Library/PackageCache/zepeto.world@1.20.0",
 			"./Library/PackageCache/zepeto.world@1.20.0/typings/InputSystem",
 			"./Library/PackageCache/zepeto.world@1.20.0/typings/PostProcessing/Editor",

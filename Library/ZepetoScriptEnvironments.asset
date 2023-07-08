@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodejsVersion: v14.17.6
-  nodejsExecutablePath: G:\Zepeto-Empty\Library\node\node.exe
-  npmExecutablePath: G:\Zepeto-Empty\Library\node\npm.cmd
+  nodejsExecutablePath: G:\Github\Zepeto-Empty\Library\node\node.exe
+  npmExecutablePath: G:\Github\Zepeto-Empty\Library\node\npm.cmd
   typescriptVersion: 4.3.5
   typescriptExecutablePath: G:\Zepeto-Empty\node_modules\typescript\lib\tsc.js
   zepetoScriptCompilerVersion: "0.1.88\r"
-  zepetoScriptCompilerExecutablePath: G:\Zepeto-Empty\node_modules\zepeto-script-compiler\dist\index.js
+  zepetoScriptCompilerExecutablePath: G:\Github\Zepeto-Empty\node_modules\zepeto-script-compiler\dist\index.js
