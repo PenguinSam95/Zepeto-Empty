@@ -16,4 +16,4 @@ MonoBehaviour:
   useProductSettings: 0
   launcherMediaUrl: 
   launcherMediaType: 
-  isShowProfiler: 1
+  isShowProfiler: 0

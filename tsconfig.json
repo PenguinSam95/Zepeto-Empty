@@ -11,6 +11,7 @@
 			}
 		],
 		"types": [
+			"./Assets/World.multiplay/SchemaTypes",
 			"./Library/PackageCache/zepeto.analytics@1.2.1/Runtime",
 			"./Library/PackageCache/zepeto.multiplay.script@1.12.2/Runtime",
 			"./Library/PackageCache/zepeto.multiplay.script@1.12.2/Runtime/shared",
