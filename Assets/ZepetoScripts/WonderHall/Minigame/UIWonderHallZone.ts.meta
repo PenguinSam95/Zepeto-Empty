@@ -1,0 +1,53 @@
+fileFormatVersion: 2
+guid: 40f8fb6006d4b9b4c844740830cb2c83
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\n//import { mgLog } from ''../mgLog'';\r\nconst
+    UIHallGameControl_1 = require(\"./UIHallGameControl\");\r\nconst uihall_p1_intro_1
+    = require(\"./uihall_p1_intro\");\r\nconst UIWonderHallRank_1 = require(\"./UIWonderHallRank\");\r\nconst
+    UIHallGameover_1 = require(\"./UIHallGameover\");\r\nconst UIHallBadgePopup_1
+    = require(\"./UIHallBadgePopup\");\r\nconst mgLog_1 = require(\"../../CommonUtil/mgLog\");\r\nclass
+    UIWonderHallZone extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    get UIHallP1Intro()
+    {\r\n        return this._uiHallP1Intro;\r\n    }\r\n    get UIWonderHallRank()
+    {\r\n        return this._uiWonderHallRank;\r\n    }\r\n    get UIGameControl()
+    {\r\n        return this._uiGameControl;\r\n    }\r\n    get UIHallGameover()
+    {\r\n        return this._uiHallGameover;\r\n    }\r\n    get UIHallBadgePopup()
+    {\r\n        return this._uiHallBadgePopup;\r\n    }\r\n    static get instance()
+    {\r\n        if (this._instance === null) {\r\n            this._instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(UIWonderHallZone));\r\n           
+    if (this._instance === null) {\r\n                this._instance = new UnityEngine_1.GameObject(UIWonderHallZone.name).AddComponent($typeof(UIWonderHallZone));\r\n           
+    }\r\n        }\r\n        return this._instance;\r\n    }\r\n    Awake() {\r\n       
+    if (UIWonderHallZone._instance !== null && UIWonderHallZone._instance !== this)
+    {\r\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\r\n       
+    }\r\n        else {\r\n            UIWonderHallZone._instance = this;\r\n       
+    }\r\n    }\r\n    Start() {\r\n        mgLog_1.mgLog.log(''......UIWonderHallZone
+    start...'');\r\n        this._uiHallP1Intro = (this.uiHallRank?.GetComponent)($typeof(uihall_p1_intro_1.default));\r\n       
+    this._uiHallP1Intro?.gameObject.SetActive(false);\r\n        this._uiWonderHallRank
+    = (this.uiHallRank?.GetComponent)($typeof(UIWonderHallRank_1.default));\r\n       
+    this._uiWonderHallRank?.gameObject.SetActive(false);\r\n        this._uiGameControl
+    = (this.uiGameControlObject?.GetComponent)($typeof(UIHallGameControl_1.default));\r\n       
+    this._uiGameControl?.gameObject.SetActive(false);\r\n        this._uiHallGameover
+    = (this.uiHallGameoverObject?.GetComponent)($typeof(UIHallGameover_1.default));\r\n       
+    this._uiHallGameover?.gameObject.SetActive(false);\r\n        this._uiHallBadgePopup
+    = (this.uiHallBadgePopupObject?.GetComponent)($typeof(UIHallBadgePopup_1.default));\r\n       
+    this._uiHallBadgePopup?.gameObject.SetActive(false);\r\n    }\r\n}\r\nexports.default
+    = UIWonderHallZone;\r\nUIWonderHallZone._instance = null;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVUlXb25kZXJIYWxsWm9uZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlVJV29uZGVySGFsbFpvbmUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2Q0FBaUQ7QUFDakQsaURBQXFEO0FBQ3JELG1DQUFtQztBQUNuQywyREFBb0Q7QUFDcEQsdURBQThDO0FBQzlDLHlEQUFrRDtBQUNsRCxxREFBOEM7QUFDOUMseURBQWtEO0FBQ2xELGtEQUErQztBQUkvQyxNQUFxQixnQkFBaUIsU0FBUSxxQ0FBcUI7SUFjL0QsSUFBVyxhQUFhO1FBQ3BCLE9BQU8sSUFBSSxDQUFDLGNBQWMsQ0FBQztJQUMvQixDQUFDO0lBRUQsSUFBVyxnQkFBZ0I7UUFDdkIsT0FBTyxJQUFJLENBQUMsaUJBQWlCLENBQUM7SUFDbEMsQ0FBQztJQUVELElBQVcsYUFBYTtRQUNwQixPQUFPLElBQUksQ0FBQyxjQUFjLENBQUM7SUFDL0IsQ0FBQztJQUVELElBQVcsY0FBYztRQUNyQixPQUFPLElBQUksQ0FBQyxlQUFlLENBQUM7SUFDaEMsQ0FBQztJQUVELElBQVcsZ0JBQWdCO1FBQ3ZCLE9BQU8sSUFBSSxDQUFDLGlCQUFpQixDQUFDO0lBQ2xDLENBQUM7SUFNTSxNQUFNLEtBQUssUUFBUTtRQUN0QixJQUFJLElBQUksQ0FBQyxTQUFTLEtBQUssSUFBSSxFQUFFO1lBQ3pCLElBQUksQ0FBQyxTQUFTLEdBQUcsd0JBQVUsQ0FBQyxnQkFBZ0IsU0FBQyxnQkFBZ0IsRUFBRyxDQUFDO1lBQ2pFLElBQUksSUFBSSxDQUFDLFNBQVMsS0FBSyxJQUFJLEVBQUU7Z0JBQ3pCLElBQUksQ0FBQyxTQUFTLEdBQUcsSUFBSSx3QkFBVSxDQUFDLGdCQUFnQixDQUFDLElBQUksQ0FBQyxDQUFDLFlBQVksU0FBQyxnQkFBZ0IsRUFBRyxDQUFDO2FBQzNGO1NBQ0o7UUFDRCxPQUFPLElBQUksQ0FBQyxTQUFTLENBQUM7SUFDMUIsQ0FBQztJQUdPLEtBQUs7UUFDVCxJQUFJLGdCQUFnQixDQUFDLFNBQVMsS0FBSyxJQUFJLElBQUksZ0JBQWdCLENBQUMsU0FBUyxLQUFLLElBQUksRUFBRTtZQUM1RSx3QkFBVSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDLENBQUM7U0FDdkM7YUFBTTtZQUNILGdCQUFnQixDQUFDLFNBQVMsR0FBRyxJQUFJLENBQUM7U0FDckM7SUFDTCxDQUFDO0lBR0QsS0FBSztRQUVELGFBQUssQ0FBQyxHQUFHLENBQUMsaUNBQWlDLENBQUMsQ0FBQztRQUk3QyxJQUFJLENBQUMsY0FBYyxHQUFHLENBQUEsSUFBSSxDQUFDLFVBQVUsRUFBRSxZQUFZLENBQUEsU0FBQyx5QkFBYSxFQUFHLENBQUM7UUFDckUsSUFBSSxDQUFDLGNBQWMsRUFBRSxVQUFVLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBRWpELElBQUksQ0FBQyxpQkFBaUIsR0FBRyxDQUFBLElBQUksQ0FBQyxVQUFVLEVBQUUsWUFBWSxDQUFBLFNBQUMsMEJBQWdCLEVBQUcsQ0FBQztRQUMzRSxJQUFJLENBQUMsaUJBQWlCLEVBQUUsVUFBVSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQztRQUVwRCxJQUFJLENBQUMsY0FBYyxHQUFHLENBQUEsSUFBSSxDQUFDLG1CQUFtQixFQUFFLFlBQVksQ0FBQSxTQUFDLDJCQUFpQixFQUFHLENBQUM7UUFDbEYsSUFBSSxDQUFDLGNBQWMsRUFBRSxVQUFVLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBRWpELElBQUksQ0FBQyxlQUFlLEdBQUcsQ0FBQSxJQUFJLENBQUMsb0JBQW9CLEVBQUUsWUFBWSxDQUFBLFNBQUMsd0JBQWMsRUFBRyxDQUFDO1FBQ2pGLElBQUksQ0FBQyxlQUFlLEVBQUUsVUFBVSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQztRQUVsRCxJQUFJLENBQUMsaUJBQWlCLEdBQUcsQ0FBQSxJQUFJLENBQUMsc0JBQXNCLEVBQUUsWUFBWSxDQUFBLFNBQUMsMEJBQWdCLEVBQUcsQ0FBQztRQUN2RixJQUFJLENBQUMsaUJBQWlCLEVBQUUsVUFBVSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQztJQUl4RCxDQUFDOztBQWpGTCxtQ0FtRkM7QUE5Q2tCLDBCQUFTLEdBQXFCLElBQUksQ0FBQyJ9","assetPath":"Assets/ZepetoScripts/WonderHall/Minigame/UIWonderHallZone.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"uiHallIntro","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"uiHallRank","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"uiGameControlObject","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"uiHallGameoverObject","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"uiHallBadgePopupObject","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"UIWonderHallZone","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 7938b03b2794edcc4f1b6d12a0142390
+  onlyWriteTrigger: 0

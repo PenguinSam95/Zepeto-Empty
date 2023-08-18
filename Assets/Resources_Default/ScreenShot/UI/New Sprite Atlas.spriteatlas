@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: New Sprite Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 01047a221883106419107a322b3928d0, type: 3}
+    - {fileID: 102900000, guid: d1973d5e48644a0428713e99290614eb, type: 3}
+    totalSpriteSurfaceArea: 1708330
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c43aa8809f6596141a07c9a1386576e4, type: 3}
+  - {fileID: 21300000, guid: fc5cde90f9a07db42940ed5afc5be122, type: 3}
+  - {fileID: 21300000, guid: d36a4891e27b7f946bf47e60148931a0, type: 3}
+  - {fileID: 21300000, guid: f90d75a3746c9cd4ebffa8c5d8193ba4, type: 3}
+  - {fileID: 21300000, guid: 0237a3b47238a93498ff6626cc68c2b7, type: 3}
+  - {fileID: 21300000, guid: e9c3cd15bd3934b92a3e0434854732c0, type: 3}
+  - {fileID: 21300000, guid: 5b61e50655463d8428d930bb1b5992be, type: 3}
+  - {fileID: 21300000, guid: 70886a568bfa60b4eb07bf67de9f7d47, type: 3}
+  - {fileID: 21300000, guid: 88613957c21ad794280a329ad9f3f8cf, type: 3}
+  - {fileID: 21300000, guid: b971a3874e3004059a355e01af649f98, type: 3}
+  - {fileID: 21300000, guid: 6acebe89249ad084187322a42d1e36d5, type: 3}
+  - {fileID: 21300000, guid: 77615ab9c5c557041b8fa416ed9ef4d4, type: 3}
+  - {fileID: 21300000, guid: d17e3ad99c922694abacab63c6d8906b, type: 3}
+  - {fileID: 21300000, guid: 655f2a0a84a8deb42ad05519f2648628, type: 3}
+  - {fileID: 21300000, guid: e17ebddaa8461409498d32100e010b01, type: 3}
+  - {fileID: 21300000, guid: 47f2a55b1fcaa824fa5def33a5cc276c, type: 3}
+  - {fileID: 21300000, guid: 39edfb5b3f4dfb7488a92efef4dd7d2c, type: 3}
+  - {fileID: 21300000, guid: 6d95e99b839d5e54cbdc50d53578987f, type: 3}
+  - {fileID: 21300000, guid: 7c30c4eb68b71e24cb3c71a9dc3c75c8, type: 3}
+  - {fileID: 21300000, guid: ea96f0fb9e2145249bf37da6d888fb68, type: 3}
+  - {fileID: 21300000, guid: 721b4edc53d1fe74086d0f356afa831f, type: 3}
+  - {fileID: 21300000, guid: 255b11ad4fc96154a9e98d9e8945f8c5, type: 3}
+  - {fileID: 21300000, guid: 2c5b923e15b400243a6925e3599d678c, type: 3}
+  - {fileID: 21300000, guid: e181674e773a2d24ca32986fee8ca49c, type: 3}
+  - {fileID: 21300000, guid: 09ee774fa56a84352ac5f188f4e5db3a, type: 3}
+  - {fileID: 21300000, guid: 9b42675f6b7407a4ca4bf70c54b2cba2, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ic_gesture
+  - ic_camera
+  - img_button_frame
+  - ic_check
+  - image_gesture_view_panel_rectangle
+  - ic_52_recording
+  - ic_transparent
+  - image_ellipse_green
+  - ic_cameramode
+  - Ellipse 28
+  - ic_selfiemode
+  - image_gesture_sleep
+  - trnsbg
+  - ic_shutter
+  - ic_52_record
+  - image_gesture_ok
+  - image_ellipse_red
+  - ic_share
+  - ic_save
+  - ic_close
+  - ic_camera_bg
+  - ic_upload
+  - image_gesture_view_title_line
+  - image_gesture_dance
+  - ic_recording_progress
+  - ic_arlet
+  m_RenderDataMap: {}
+  m_Tag: New Sprite Atlas
+  m_IsVariant: 0

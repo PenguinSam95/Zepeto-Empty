@@ -1,0 +1,83 @@
+fileFormatVersion: 2
+guid: 589516e8b86aee84585517fa10be9909
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: "{\"source\":\"\\\"use strict\\\";\\r\\nObject.defineProperty(exports,
+    \\\"__esModule\\\", { value: true });\\r\\nconst UnityEngine_1 = require(\\\"UnityEngine\\\");\\r\\nconst
+    UnityEngine_SceneManagement_1 = require(\\\"UnityEngine.SceneManagement\\\");\\r\\nconst
+    ZEPETO_Script_1 = require(\\\"ZEPETO.Script\\\");\\r\\n// import GameManager
+    from '../../Zepeto Multiplay Component/ZepetoScript/Managers/GameManager';\\r\\n//
+    import HallSceneManager from '../WonderHall/WonderHall/Minigame/HallSceneManager';\\r\\n//
+    import MinigameJGManager from '../WonderHall/WonderHall/Minigame/MinigameJGManager';\\r\\n//
+    import MinigameNTManager from '../WonderHall/WonderHall/Minigame/MinigameNTManager';\\r\\nconst
+    mgLog_1 = require(\\\"./mgLog\\\");\\r\\nclass AdditiveScene extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\\r\\n    static get instance() {\\r\\n        if (this._instance === null)
+    {\\r\\n            this._instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(AdditiveScene));\\r\\n           
+    if (this._instance === null) {\\r\\n                this._instance = new UnityEngine_1.GameObject(AdditiveScene.name).AddComponent($typeof(AdditiveScene));\\r\\n           
+    }\\r\\n        }\\r\\n        return this._instance;\\r\\n    }\\r\\n    Awake()
+    {\\r\\n        if (AdditiveScene._instance !== null && AdditiveScene._instance
+    !== this) {\\r\\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\\r\\n       
+    }\\r\\n        else {\\r\\n            AdditiveScene._instance = this;\\r\\n           
+    UnityEngine_1.GameObject.DontDestroyOnLoad(this.gameObject);\\r\\n        }\\r\\n   
+    }\\r\\n    Start() {\\r\\n        //InterActonScene.Index = -10;\\r\\n       
+    UnityEngine_SceneManagement_1.SceneManager.LoadSceneAsync(this.AdditiveSceneName,
+    UnityEngine_SceneManagement_1.LoadSceneMode.Additive).add_completed(() => {\\r\\n           
+    mgLog_1.mgLog.log(`completeAsync`);\\r\\n            // HallSceneManager.instance.TestLog();\\r\\n           
+    // if (KWLocalPlayer.client != null)\\r\\n            // {\\r\\n            //
+    \\tKWLocalPlayer.client.nowScene = this.SceneIndex;\\r\\n            // \\t//
+    if (KWLocalPlayer.localPlayerData != null) {\\r\\n            // \\t//     this.InitAllSetting();\\r\\n           
+    // \\t// }\\r\\n            // }\\r\\n            // this.StartCoroutine(this.InitAllSetting());\\r\\n           
+    this.StartCoroutine(this.InitMG());\\r\\n        });\\r\\n    }\\r\\n    /*\\r\\n   
+    * InitAllSetting()\\r\\n    {\\r\\n        console.log(`[AdditiveSceneInit]`);\\r\\n\\r\\n       
+    yield new WaitUntil(() =>\\r\\n        {\\r\\n            if (KWLocalPlayer.client
+    != null && ZepetoPlayers.instance.LocalPlayer != null)\\r\\n            {\\r\\n               
+    return true;\\r\\n            }\\r\\n            return false;\\r\\n        });\\r\\n\\r\\n       
+    InteractionButton.ButtonObject.gameObject.SetActive(false);\\r\\n\\r\\n       
+    KWLocalPlayer.client.RequestEffect(0, true);\\r\\n        ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.ZepetoAnimator.SetBool(`isHold`,
+    KWLocalPlayer.localPlayerData.HoldValue);\\r\\n\\r\\n        if (this.AdditiveSceneName
+    == \\\"K_Land_Program\\\")\\r\\n        {\\r\\n            if (KWLocalPlayer.localPlayerData.IsFirst)\\r\\n           
+    {\\r\\n                ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.transform.position
+    = new Vector3(0, 1, 62);\\r\\n                ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.transform.localEulerAngles
+    = new Vector3(0, 180, 0);\\r\\n                ZepetoPlayers.instance.LocalPlayer.zepetoCamera.cameraParent.transform.localEulerAngles
+    = new Vector3(-18, 180, 0);\\r\\n                KWLocalPlayer.localPlayerData.IsFirst
+    = false;\\r\\n                return;\\r\\n            }\\r\\n            else\\r\\n           
+    {\\r\\n                ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.transform.position
+    = new Vector3(2, 1, -12);\\r\\n                ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.transform.localEulerAngles
+    = new Vector3(0, 0, 0);\\r\\n                ZepetoPlayers.instance.LocalPlayer.zepetoCamera.cameraParent.transform.localEulerAngles
+    = new Vector3(-18, 0, 0);\\r\\n                return;\\r\\n            }\\r\\n       
+    }\\r\\n        if (this.AdditiveSceneName == \\\"K_Hall_Program\\\")\\r\\n       
+    {\\r\\n            ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.transform.position
+    = new Vector3(7, -13, 0.85);\\r\\n            ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.transform.localEulerAngles
+    = new Vector3(0, -90, 0);\\r\\n            ZepetoPlayers.instance.LocalPlayer.zepetoCamera.cameraParent.transform.localEulerAngles
+    = new Vector3(10, -90, 0);\\r\\n        }\\r\\n\\r\\n    }\\r\\n    */\\r\\n   
+    *InitMG() {\\r\\n        yield new UnityEngine_1.WaitForSeconds(5); // \uC52C
+    \uBD84\uB9AC\uB85C \uC784\uC2DC\uCF54\uB4DC\uC784\\t\\t\\r\\n        //mgLog.log(`completeAsync
+    InitMG`);\\r\\n        //HallSceneManager.instance.TestLog();\\r\\n        //
+    GameManager.instance.zoneMoveManager.wonderHallZone_GameNT = HallSceneManager.instance.teleportNT;\\r\\n       
+    // GameManager.instance.zoneMoveManager.wonderHallZone_GameJG = HallSceneManager.instance.teleportJG;\\r\\n       
+    // const minigameJGManager = HallSceneManager.instance.minigameJGManagerObject.GetComponent<MinigameJGManager>();\\r\\n       
+    // GameManager.instance.minigameJGManager = minigameJGManager;\\r\\n        //
+    minigameJGManager.RemoteStart();\\r\\n        // const minigameNTManager = HallSceneManager.instance.minigameNTManagerObject.GetComponent<MinigameNTManager>();\\r\\n       
+    // GameManager.instance.minigameNTManager = minigameNTManager;\\r\\n        //
+    minigameNTManager.RemoteStart();\\r\\n        //mgLog.log('completeAsync minigameJGManager,
+    minigameNTManager inited');\\r\\n    }\\r\\n}\\r\\nexports.default = AdditiveScene;\\r\\n//public
+    SpawnPosition : Vector3;\\r\\n//private CamParent: Transform;\\r\\nAdditiveScene._instance
+    = null;\\r\\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQWRkaXRpdmVTY2VuZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIkFkZGl0aXZlU2NlbmUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2Q0FBZ0c7QUFDaEcsNkVBQTBFO0FBRTFFLGlEQUFxRDtBQUNyRCxnR0FBZ0c7QUFDaEcscUZBQXFGO0FBQ3JGLHVGQUF1RjtBQUN2Rix1RkFBdUY7QUFDdkYsbUNBQWdDO0FBRWhDLE1BQXFCLGFBQWMsU0FBUSxxQ0FBcUI7SUFReEQsTUFBTSxLQUFLLFFBQVE7UUFDekIsSUFBSSxJQUFJLENBQUMsU0FBUyxLQUFLLElBQUksRUFBRTtZQUM1QixJQUFJLENBQUMsU0FBUyxHQUFHLHdCQUFVLENBQUMsZ0JBQWdCLFNBQUMsYUFBYSxFQUFHLENBQUM7WUFDOUQsSUFBSSxJQUFJLENBQUMsU0FBUyxLQUFLLElBQUksRUFBRTtnQkFDNUIsSUFBSSxDQUFDLFNBQVMsR0FBRyxJQUFJLHdCQUFVLENBQUMsYUFBYSxDQUFDLElBQUksQ0FBQyxDQUFDLFlBQVksU0FBQyxhQUFhLEVBQUcsQ0FBQzthQUNsRjtTQUNEO1FBQ0QsT0FBTyxJQUFJLENBQUMsU0FBUyxDQUFDO0lBQ3ZCLENBQUM7SUFFTyxLQUFLO1FBQ1osSUFBSSxhQUFhLENBQUMsU0FBUyxLQUFLLElBQUksSUFBSSxhQUFhLENBQUMsU0FBUyxLQUFLLElBQUksRUFBRTtZQUN6RSx3QkFBVSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDLENBQUM7U0FDcEM7YUFBTTtZQUNOLGFBQWEsQ0FBQyxTQUFTLEdBQUcsSUFBSSxDQUFDO1lBQy9CLHdCQUFVLENBQUMsaUJBQWlCLENBQUMsSUFBSSxDQUFDLFVBQVUsQ0FBQyxDQUFDO1NBQzlDO0lBQ0YsQ0FBQztJQUVELEtBQUs7UUFDSiw4QkFBOEI7UUFDOUIsMENBQVksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLGlCQUFpQixFQUFFLDJDQUFhLENBQUMsUUFBUSxDQUFDLENBQUMsYUFBYSxDQUFDLEdBQUcsRUFBRTtZQUM5RixhQUFLLENBQUMsR0FBRyxDQUFDLGVBQWUsQ0FBQyxDQUFDO1lBQzNCLHVDQUF1QztZQUV2QyxvQ0FBb0M7WUFDcEMsSUFBSTtZQUNKLG9EQUFvRDtZQUNwRCxtREFBbUQ7WUFDbkQsaUNBQWlDO1lBQ2pDLFFBQVE7WUFDUixJQUFJO1lBQ0osOENBQThDO1lBRzlDLElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxDQUFDLENBQUM7UUFJcEMsQ0FBQyxDQUFDLENBQUM7SUFDSixDQUFDO0lBRUQ7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztNQTZDRTtJQUVGLENBQUMsTUFBTTtRQUNOLE1BQU0sSUFBSSw0QkFBYyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsZ0JBQWdCO1FBQzdDLG9DQUFvQztRQUNwQyxzQ0FBc0M7UUFFdEMscUdBQXFHO1FBQ3JHLHFHQUFxRztRQUdyRyxpSEFBaUg7UUFDakgsOERBQThEO1FBQzlELG1DQUFtQztRQUduQyxpSEFBaUg7UUFDakgsOERBQThEO1FBQzlELG1DQUFtQztRQUduQyx5RUFBeUU7SUFHMUUsQ0FBQzs7QUF2SEYsZ0NBMEhDO0FBdEhBLGlDQUFpQztBQUNqQywrQkFBK0I7QUFFaEIsdUJBQVMsR0FBa0IsSUFBSSxDQUFDIn0=\",\"assetPath\":\"Assets/ZepetoScripts/CommonUtil/AdditiveScene.ts\",\"manifest\":{\"properties\":[{\"assembly\":\"mscorlib\",\"name\":\"AdditiveSceneName\",\"type\":\"System.String\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]},{\"assembly\":\"mscorlib\",\"name\":\"SceneIndex\",\"type\":\"System.Single\",\"isArray\":false,\"initValue\":[],\"enumKeys\":[],\"enumValues\":[],\"attributes\":[]}],\"name\":\"AdditiveScene\",\"description\":\"\",\"hasAnimatorMove\":false},\"isCompiled\":true}"
+  typescriptHash: 9c64347572ddc8ead3aa47205b447921
+  onlyWriteTrigger: 0

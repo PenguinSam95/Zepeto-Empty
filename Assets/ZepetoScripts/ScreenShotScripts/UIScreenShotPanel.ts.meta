@@ -1,0 +1,86 @@
+fileFormatVersion: 2
+guid: 40b9b1085ab4c9e40a3b38b071850fc0
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    GameManager_1 = require(\"../../Zepeto Multiplay Component/ZepetoScript/Managers/GameManager\");\r\nconst
+    TypeManager_1 = require(\"../../Zepeto Multiplay Component/ZepetoScript/Managers/TypeManager\");\r\nconst
+    TimeSpan_1 = require(\"./TimeSpan\");\r\nconst WorldVideoRecorderExample_1 =
+    require(\"./WorldVideoRecorderExample\");\r\nclass UIScreenShotPanel extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor() {\r\n        super(...arguments);\r\n       
+    this.totalRecordTime = 60;\r\n        this.tsPlayTime = null;\r\n        this._ringCoroutine
+    = null;\r\n    }\r\n    Start() {\r\n        this.worldVideoRecorder = this.worldVideoRecorderObject.GetComponent($typeof(WorldVideoRecorderExample_1.default));\r\n       
+    this.recordStart?.onClick.AddListener(() => {\r\n            this.StartRecording();\r\n       
+    });\r\n        this.recording?.onClick.AddListener(() => {\r\n            this.StopRecording();\r\n       
+    });\r\n        this.exitButton?.onClick.AddListener(() => {\r\n            //this.StopRecording();\r\n           
+    this.ForceStop();\r\n        });\r\n        this.recordingClose?.onClick.AddListener(()
+    => {\r\n            this.Init();\r\n        });\r\n        this.recordSave?.onClick.AddListener(()
+    => {\r\n            this.worldVideoRecorder.SaveVideo();\r\n            this.recordSave.interactable
+    = false;\r\n        });\r\n        this.recordShare?.onClick.AddListener(() =>
+    {\r\n            this.worldVideoRecorder.ShareVideo();\r\n        });\r\n       
+    this.recordFeed?.onClick.AddListener(() => {\r\n            this.worldVideoRecorder.CreateFeed();\r\n           
+    this.recordFeed.interactable = false;\r\n            GameManager_1.default.instance.Toast(TypeManager_1.TOAST_MESSAGE.feedUploading);\r\n           
+    this.StartCoroutine(this.Feed());\r\n        });\r\n    }\r\n    *Feed() {\r\n       
+    yield new UnityEngine_1.WaitWhile(() => this.worldVideoRecorder.IsFeed);\r\n       
+    this.recordFeed.interactable = true;\r\n    }\r\n    OnEnable() {\r\n       
+    this.Init();\r\n    }\r\n    StartRecording() {\r\n        const ret = this.worldVideoRecorder.StartRecording();\r\n       
+    if (ret == true) {\r\n            this.shoot.interactable = false;\r\n           
+    this.viewChange.interactable = false;\r\n            this.recordStart.gameObject.SetActive(false);\r\n           
+    this.recording.gameObject.SetActive(true);\r\n            this.timePanel.SetActive(true);\r\n           
+    if (this._ringCoroutine != null) {\r\n                this.StopCoroutine(this._ringCoroutine);\r\n               
+    this._ringCoroutine = null;\r\n            }\r\n            this._ringCoroutine
+    = this.StartCoroutine(this.IncreaseRecordRing());\r\n        }\r\n    }\r\n   
+    StopRecording() {\r\n        console.log(\"@@@@@@@ timeout stop record 1\");\r\n       
+    const ret = this.worldVideoRecorder.StopRecording();\r\n        //if( ret ==
+    true ) {\r\n        console.log(\"@@@@@@@ timeout stop record 2\");\r\n       
+    this.recordStart.gameObject.SetActive(true);\r\n        this.recording.gameObject.SetActive(false);\r\n       
+    this.shoot.interactable = true;\r\n        this.viewChange.interactable = true;\r\n       
+    this.readyPanel.gameObject.SetActive(false);\r\n        this.afterRecordPanel.gameObject.SetActive(true);\r\n       
+    this.recordSave.interactable = true;\r\n        if (this._ringCoroutine != null)
+    {\r\n            this.StopCoroutine(this._ringCoroutine);\r\n            this._ringCoroutine
+    = null;\r\n        }\r\n        //}\r\n    }\r\n    ForceStop() {\r\n       
+    console.log(\"@@@@@@@ ForceStop stop record\");\r\n        this.worldVideoRecorder.StopRecording();\r\n       
+    if (this._ringCoroutine != null) {\r\n            this.StopCoroutine(this._ringCoroutine);\r\n           
+    this._ringCoroutine = null;\r\n        }\r\n        this.shoot.interactable =
+    true;\r\n        this.viewChange.interactable = true;\r\n    }\r\n    Init()
+    {\r\n        this.shoot.interactable = true;\r\n        this.viewChange.interactable
+    = true;\r\n        this.afterRecordPanel.SetActive(false);\r\n        this.readyPanel.SetActive(true);\r\n       
+    this.timePanel.SetActive(false);\r\n        this.recording.gameObject.SetActive(false);\r\n       
+    this.recordRing.fillAmount = 0;\r\n        this.StopAllCoroutines();\r\n       
+    this._ringCoroutine = null;\r\n    }\r\n    *IncreaseRecordRing() {\r\n       
+    let timegap = 0.01;\r\n        //this.tsPlayTime = TimeSpan.fromSeconds(this.totalRecordTime);       
+    \r\n        this.tsPlayTime = TimeSpan_1.TimeSpan.fromMilliseconds(0);\r\n       
+    const totalTimeMS = 1000 * this.totalRecordTime;\r\n        const tsTimeGap =
+    TimeSpan_1.TimeSpan.fromMilliseconds(timegap * 1000);\r\n        const wait =
+    new UnityEngine_1.WaitForSeconds(timegap);\r\n        let sec = '''';\r\n       
+    let msec = '''';\r\n        this.recordRing.fillAmount = 0;\r\n        while
+    (true) {\r\n            sec = this.tsPlayTime.seconds.toString().padStart(2,
+    \"0\");\r\n            msec = (this.tsPlayTime.milliseconds / 10).toString().padStart(2,
+    \"0\");\r\n            this.recordTimeLabel.text = `${sec}:${msec}`;\r\n           
+    yield wait;\r\n            //this.tsPlayTime = this.tsPlayTime.subtract(tsTimeGap);\r\n           
+    this.tsPlayTime = this.tsPlayTime.add(tsTimeGap);\r\n            if (this.tsPlayTime.totalSeconds
+    >= 60) {\r\n                break;\r\n            }\r\n            const playRatio
+    = this.tsPlayTime.totalMilliseconds / totalTimeMS;\r\n            this.recordRing.fillAmount
+    = playRatio;\r\n        }\r\n        console.log(\"!!!!!! timeout stop record
+    \");\r\n        this._ringCoroutine = null;\r\n        this.StopRecording();\r\n   
+    }\r\n}\r\nexports.default = UIScreenShotPanel;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVUlTY3JlZW5TaG90UGFuZWwuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJVSVNjcmVlblNob3RQYW5lbC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUNBLDZDQUErRTtBQUMvRSxtREFBK0M7QUFDL0MsaURBQXFEO0FBQ3JELG9HQUE2RjtBQUM3RixvR0FBbUc7QUFDbkcseUNBQXNDO0FBQ3RDLDJFQUFvRTtBQUVwRSxNQUFxQixpQkFBa0IsU0FBUSxxQ0FBcUI7SUFBcEU7O1FBeUJXLG9CQUFlLEdBQVMsRUFBRSxDQUFDO1FBQzFCLGVBQVUsR0FBYyxJQUFJLENBQUM7UUFFN0IsbUJBQWMsR0FBZSxJQUFJLENBQUM7SUErSzlDLENBQUM7SUE1S0csS0FBSztRQUVELElBQUksQ0FBQyxrQkFBa0IsR0FBRyxJQUFJLENBQUMsd0JBQXdCLENBQUMsWUFBWSxTQUFDLG1DQUF5QixFQUFHLENBQUM7UUFFbEcsSUFBSSxDQUFDLFdBQVcsRUFBRSxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtZQUN2QyxJQUFJLENBQUMsY0FBYyxFQUFFLENBQUM7UUFDMUIsQ0FBQyxDQUFDLENBQUM7UUFHSCxJQUFJLENBQUMsU0FBUyxFQUFFLE9BQU8sQ0FBQyxXQUFXLENBQUMsR0FBRyxFQUFFO1lBQ3JDLElBQUksQ0FBQyxhQUFhLEVBQUUsQ0FBQztRQUN6QixDQUFDLENBQUMsQ0FBQztRQUdILElBQUksQ0FBQyxVQUFVLEVBQUUsT0FBTyxDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7WUFDdEMsdUJBQXVCO1lBQ3ZCLElBQUksQ0FBQyxTQUFTLEVBQUUsQ0FBQztRQUNyQixDQUFDLENBQUMsQ0FBQztRQUVILElBQUksQ0FBQyxjQUFjLEVBQUUsT0FBTyxDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7WUFDMUMsSUFBSSxDQUFDLElBQUksRUFBRSxDQUFDO1FBQ2hCLENBQUMsQ0FBQyxDQUFDO1FBR0gsSUFBSSxDQUFDLFVBQVUsRUFBRSxPQUFPLENB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","assetPath":"Assets/ZepetoScripts/ScreenShotScripts/UIScreenShotPanel.ts","manifest":{"properties":[{"assembly":"UnityEngine.UI","name":"shoot","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"viewChange","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"readyPanel","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"recordStart","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"recording","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"recordRing","type":"UnityEngine.UI.Image","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"exitButton","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"afterRecordPanel","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"recordSave","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"recordShare","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"recordFeed","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"recordingClose","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"timePanel","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"Unity.TextMeshPro","name":"recordTimeLabel","type":"TMPro.TextMeshProUGUI","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"worldVideoRecorderObject","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"totalRecordTime","type":"System.Int32","isArray":false,"initValue":["60"],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"UIScreenShotPanel","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 68483954f4341d1ee7122fa5fc8a04dd
+  onlyWriteTrigger: 0

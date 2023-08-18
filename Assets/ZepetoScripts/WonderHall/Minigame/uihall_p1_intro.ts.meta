@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 9b29332c8555de446806dc2eb3f7daa1
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nclass
+    UIHallP1Intro extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    Start()
+    {\r\n    }\r\n}\r\nexports.default = UIHallP1Intro;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidWloYWxsX3AxX2ludHJvLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsidWloYWxsX3AxX2ludHJvLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaURBQXFEO0FBRXJELE1BQXFCLGFBQWMsU0FBUSxxQ0FBcUI7SUFFNUQsS0FBSztJQUVMLENBQUM7Q0FFSjtBQU5ELGdDQU1DIn0=","assetPath":"Assets/ZepetoScripts/WonderHall/Minigame/uihall_p1_intro.ts","manifest":{"properties":[],"name":"UIHallP1Intro","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: d23e70187aa806a68e8c1f3967f672dd
+  onlyWriteTrigger: 0

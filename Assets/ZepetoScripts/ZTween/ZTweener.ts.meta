@@ -1,0 +1,86 @@
+fileFormatVersion: 2
+guid: f52f733981523f140a65d3bb896d0560
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\n//import
+    { mgLog } from \"../Common/mgLog\";\r\nconst EaseManager_1 = require(\"./EaseManager\");\r\nconst
+    LoopType_1 = require(\"./LoopType\");\r\nclass ZTweener {\r\n    constructor()
+    {\r\n        this.active = false;\r\n        this.activeId = -1;\r\n        this.position
+    = 0;\r\n        this.easeType = EaseManager_1.Ease.Linear;\r\n        this.loopType
+    = LoopType_1.LoopType.Restart;\r\n        this.positionMovingBackward = false;\r\n       
+    this.loopCountLeft = 1;\r\n        this.duration = 0;\r\n        this.startUpDone
+    = false;\r\n    }\r\n    SetUp(getter, setter, endValue, duration) {\r\n       
+    this.setter = setter;\r\n        this.getter = getter;\r\n        this.endValue
+    = endValue;\r\n        this.duration = duration;\r\n        this.position = 0;\r\n       
+    this.easeType = EaseManager_1.Ease.Linear;\r\n        this.startUpDone = false;\r\n       
+    this.onStart = null;\r\n        this.onComplete = null;\r\n        this.positionMovingBackward
+    = false;\r\n        this.loopCountLeft = 1;\r\n    }\r\n    SetEase(easeType)
+    {\r\n        this.easeType = easeType;\r\n        return this;\r\n    }\r\n   
+    SetLoops(loopCount, loopType) {\r\n        this.loopCountLeft = loopCount;\r\n       
+    this.loopType = loopType;\r\n        return this;\r\n    }\r\n    SetOnComplete(onComplete)
+    {\r\n        this.onComplete = onComplete;\r\n        return this;\r\n    }\r\n   
+    SetOnStart(onStart) {\r\n        this.onStart = onStart;\r\n        return this;\r\n   
+    }\r\n    Update(deltaTime) {\r\n        let toPosition = this.position;\r\n       
+    toPosition += deltaTime;\r\n        this.GoTo(toPosition);\r\n    }\r\n    Stop()
+    {\r\n        this.active = false;\r\n    }\r\n    GoTo(toPosition) {\r\n       
+    if (!this.startUpDone) {\r\n            this.StartUp();\r\n        }\r\n       
+    this.position = toPosition;\r\n        if (this.position >= this.duration) {\r\n           
+    this.loopCountLeft -= 1;\r\n            if (this.loopCountLeft == 0) {\r\n               
+    this.Complete();\r\n            }\r\n            else {\r\n                if
+    (this.loopType == LoopType_1.LoopType.Yoyo) {\r\n                    this.positionMovingBackward
+    = !this.positionMovingBackward;\r\n                }\r\n                this.GoTo(this.position
+    - this.duration);\r\n            }\r\n            return;\r\n        }\r\n       
+    else if (this.position < 0) {\r\n            this.position = 0;\r\n        }\r\n       
+    this.EvaluateAndApply();\r\n    }\r\n    Complete() {\r\n        this.position
+    = this.duration;\r\n        this.EvaluateAndApply();\r\n        if (this.onComplete)
+    {\r\n            this.onComplete();\r\n        }\r\n        this.active = false;\r\n   
+    }\r\n    EvaluateAndApply() {\r\n        const position = this.positionMovingBackward
+    ? this.duration - this.position : this.position;\r\n        const t = EaseManager_1.default.Evaluate(this.easeType,
+    position, this.duration);\r\n        let newValue = null;\r\n        if (this.startValue
+    instanceof UnityEngine_1.Vector3) {\r\n            newValue = UnityEngine_1.Vector3.op_Addition(this.startValue,
+    UnityEngine_1.Vector3.op_Multiply(this.changeValue, t));\r\n            //mgLog.log(`[ZTweener:EvaluateAndApply][${this.activeId}]
+    ${position}, ${this.duration} ${newValue.ToString()}`);\r\n        }\r\n       
+    else if (this.startValue instanceof UnityEngine_1.Color) {\r\n            newValue
+    = UnityEngine_1.Color.Lerp(this.startValue, this.changeValue, t);\r\n           
+    //mgLog.log(`[ZTweener:EvaluateAndApply][${this.activeId}] ${position}, ${this.duration}
+    ${newValue.ToString()}`);\r\n        }\r\n        else {\r\n            newValue
+    = this.startValue + this.changeValue * t;\r\n            //mgLog.log(`[ZTweener:EvaluateAndApply][${this.activeId}]
+    ${position}, ${this.duration} ${newValue}`);\r\n        }\r\n        this.setter(newValue);\r\n   
+    }\r\n    /// custom add by metalgeni\r\n    SetEndVal(endval) {\r\n        this.endValue
+    = endval;\r\n        this.position = 0;\r\n        this.startValue = this.getter();\r\n       
+    //this.startUpDone = true;\r\n        if (this.endValue instanceof UnityEngine_1.Vector3)
+    {\r\n            this.changeValue = UnityEngine_1.Vector3.op_Subtraction(this.endValue,
+    this.startValue);\r\n        }\r\n        else if (this.endValue instanceof UnityEngine_1.Color)
+    {\r\n            this.changeValue = this.endValue;\r\n        }\r\n        else
+    {\r\n            this.changeValue = this.endValue - this.startValue;\r\n       
+    }\r\n    }\r\n    StartUp() {\r\n        this.startUpDone = true;\r\n       
+    this.startValue = this.getter();\r\n        if (this.endValue instanceof UnityEngine_1.Vector3)
+    {\r\n            this.changeValue = UnityEngine_1.Vector3.op_Subtraction(this.endValue,
+    this.startValue);\r\n            //console.log(`[ZTweener:StartUp][${this.activeId}]
+    ${this.startValue.ToString()}, ${this.changeValue.ToString()}`);\r\n        }\r\n       
+    else if (this.endValue instanceof UnityEngine_1.Color) {\r\n            this.changeValue
+    = this.endValue;\r\n            //console.log(`[ZTweener:StartUp][${this.activeId}]
+    ${this.startValue.ToString()}, ${this.changeValue.ToString()}`);\r\n        }\r\n       
+    else {\r\n            this.changeValue = this.endValue - this.startValue;\r\n           
+    //console.log(`[ZTweener:StartUp][${this.activeId}] ${this.startValue}, ${this.changeValue}`);\r\n       
+    }\r\n        if (this.onStart) {\r\n            this.onStart();\r\n        }\r\n   
+    }\r\n}\r\nexports.default = ZTweener;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiWlR3ZWVuZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJaVHdlZW5lci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUE2QztBQUM3QywwQ0FBMEM7QUFDMUMsK0NBQWtEO0FBQ2xELHlDQUFxQztBQUVyQyxNQUFxQixRQUFRO0lBQTdCO1FBQ1csV0FBTSxHQUFZLEtBQUssQ0FBQztRQUN4QixhQUFRLEdBQVcsQ0FBQyxDQUFDLENBQUM7UUFDdEIsYUFBUSxHQUFXLENBQUMsQ0FBQztRQVdyQixhQUFRLEdBQVMsa0JBQUksQ0FBQyxNQUFNLENBQUM7UUFDN0IsYUFBUSxHQUFhLG1CQUFRLENBQUMsT0FBTyxDQUFDO1FBQ3JDLDJCQUFzQixHQUFZLEtBQUssQ0FBQztRQUN4QyxrQkFBYSxHQUFXLENBQUMsQ0FBQztRQUUzQixhQUFRLEdBQVcsQ0FBQyxDQUFDO1FBRXBCLGdCQUFXLEdBQVksS0FBSyxDQUFDO0lBOEl6QyxDQUFDO0lBNUlVLEtBQUssQ0FBQyxNQUFNLEVBQUUsTUFBTSxFQUFFLFFBQVEsRUFBRSxRQUFnQjtRQUNuRCxJQUFJLENBQUMsTUFBTSxHQUFHLE1BQU0sQ0FBQztRQUNyQixJQUFJLENBQUMsTUFBTSxHQUFHLE1BQU0sQ0FBQztRQUNyQixJQUFJLENBQUMsUUFBUSxHQUFHLFFBQVEsQ0FBQztRQUN6QixJQUFJLENBQUMsUUFBUSxHQUFHLFFBQVEsQ0FBQztRQUV6QixJQUFJLENBQUMsUUFBUSxHQUFHLENBQUMsQ0FBQztRQUNsQixJQUFJLENBQUMsUUFBUSxHQUFHLGtCQUFJLENBQUMsTUFBTSxDQUFDO1FBQzVCLElBQUksQ0FBQyxXQUFXLEdBQUcsS0FBSyxDQUFDO1FBQ3pCLElBQUksQ0FBQyxPQUFPLEdBQUcsSUFBSSxDQUFDO1FBQ3BCLElBQUksQ0FBQyxVQUFVLEdBQUcsSUFBSSxDQUFDO1FBQ3ZCLElBQUksQ0FBQyxzQkFBc0IsR0FBRyxLQUFLLENBQUM7UUFDcEMsSUFBSSxDQUFDLGFBQWEsR0FB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","assetPath":"Assets/ZepetoScripts/ZTween/ZTweener.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"active","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"activeId","type":"System.Single","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"position","type":"System.Single","isArray":false,"initValue":["0"],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"setter","type":"any","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"getter","type":"any","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"startValue","type":"any","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"endValue","type":"any","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"changeValue","type":"any","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"onStart","type":"any","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"onComplete","type":"any","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"easeType","type":"Ease","isArray":false,"initValue":["Linear"],"enumKeys":["Unset","Linear","InSine","OutSine","InOutSine","InQuad","OutQuad","InOutQuad","InCubic","OutCubic","InOutCubic","InQuart","OutQuart","InOutQuart","InQuint","OutQuint","InOutQuint","InExpo","OutExpo","InOutExpo","InCirc","OutCirc","InOutCirc","InElastic","OutElastic","InOutElastic","InBack","OutBack","InOutBack","InBounce","OutBounce","InOutBounce"],"enumValues":["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"],"attributes":[]},{"assembly":"","name":"loopType","type":"LoopType","isArray":false,"initValue":["Restart"],"enumKeys":["Restart","Yoyo"],"enumValues":["0","1"],"attributes":[]},{"assembly":"mscorlib","name":"duration","type":"System.Single","isArray":false,"initValue":["0"],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"ZTweener","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: a801faf8d34a45811c59f3b53deb03cd
+  onlyWriteTrigger: 0

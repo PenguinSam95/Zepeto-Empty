@@ -1,0 +1,92 @@
+fileFormatVersion: 2
+guid: 7ee59b4164e045046a5ebb42330dfb05
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst __UnityEngine__ = require(\"UnityEngine\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst ZEPETO_World_1 = require(\"ZEPETO.World\");\r\nconst
+    SyncIndexManager_1 = require(\"../Common/SyncIndexManager\");\r\nconst LookAt_1
+    = require(\"../Sample Code/LookAt\");\r\nconst GameManager_1 = require(\"./GameManager\");\r\nconst
+    TypeManager_1 = require(\"./TypeManager\");\r\nclass UIManager extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\r\n    static get instance() {\r\n        if (this._instance === null) {\r\n           
+    this._instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(UIManager));\r\n           
+    if (this._instance === null) {\r\n                this._instance = new UnityEngine_1.GameObject(UIManager.name).AddComponent($typeof(UIManager));\r\n           
+    }\r\n        }\r\n        return this._instance;\r\n    }\r\n    get openUI()
+    { return this._openUI; }\r\n    set openUI(value) {\r\n        if (!this._openUI)
+    {\r\n            this.onChangeOpenUI(value);\r\n        }\r\n        else {\r\n           
+    console.error(TypeManager_1.ERROR.ALREADY_OPENED);\r\n        }\r\n    }\r\n   
+    Awake() {\r\n        if (UIManager._instance !== null && UIManager._instance
+    !== this) {\r\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\r\n       
+    }\r\n        else {\r\n            UIManager._instance = this;\r\n           
+    UnityEngine_1.GameObject.DontDestroyOnLoad(this.gameObject);\r\n        }\r\n   
+    }\r\n    Start() {\r\n        if (!this.multiplay)\r\n            this.multiplay
+    = UnityEngine_1.GameObject.FindObjectOfType($typeof(ZEPETO_World_1.ZepetoWorldMultiplay));\r\n       
+    this.multiplay.add_RoomJoined((room) => {\r\n            this.room = room;\r\n       
+    });\r\n    }\r\n    /* GameManager */\r\n    RemoteStart() {\r\n    }\r\n   
+    /**** Activities ****/\r\n    /* Check Opened UI */\r\n    DeactiveOpenUI(ui)
+    {\r\n        if (this.openUI)\r\n            this.openUI.SetActive(false);\r\n       
+    if (ui)\r\n            ui.SetActive(false);\r\n        if (__UnityEngine__.Object.op_Equality(this.openUI,
+    ui)) {\r\n            this._openUI = null;\r\n            return true;\r\n       
+    }\r\n        return false;\r\n    }\r\n    /* Check Opened UI */\r\n    DeactiveOpenUI_Target(ui)
+    {\r\n        if (this.openUI && __UnityEngine__.Object.op_Equality(this.openUI,
+    ui)) {\r\n            ui.SetActive(false);\r\n            this._openUI = null;\r\n           
+    return true;\r\n        }\r\n        return false;\r\n    }\r\n    /* Check Opened
+    UI and ButtonObject Reset */\r\n    DeactiveOpenUI_Buttons(ui, ...buttons) {\r\n       
+    const result = this.DeactiveOpenUI(ui);\r\n        if (result) {\r\n           
+    for (const button of buttons) {\r\n                const buttonObject = button.transform.parent.gameObject;\r\n               
+    buttonObject.SetActive(true);\r\n                button.RemoteStartLooking();\r\n           
+    }\r\n            return true;\r\n        }\r\n        return false;\r\n    }\r\n   
+    /* Check Opened UI and ButtonObject Reset */\r\n    DeactiveOpenUI_ButtonArray(ui,
+    buttons) {\r\n        const result = this.DeactiveOpenUI(ui);\r\n        if (result)
+    {\r\n            for (const button of buttons) {\r\n                const buttonObject
+    = button.transform.parent.gameObject;\r\n                buttonObject.SetActive(true);\r\n               
+    button.RemoteStartLooking();\r\n            }\r\n            return true;\r\n       
+    }\r\n        return false;\r\n    }\r\n    /* Main Button Panel */\r\n    MainButtonPanelVisibler(isVisible)
+    {\r\n        this.buttonPanel.gameObject.SetActive(isVisible);\r\n    }\r\n   
+    ScreenShotModuleVisibler(isVisible) {\r\n        this.screenShotModule.SetActive(isVisible);\r\n   
+    }\r\n    onChangeOpenUI(openUI) {\r\n        this._openUI = openUI;\r\n       
+    this._openUI.SetActive(true);\r\n    }\r\n    /** Supporter **/\r\n    /* Get
+    Loading Image Object */\r\n    GetLoadingImage(type) {\r\n        switch (type.toString())
+    {\r\n            case TypeManager_1.LoadingType.Start:\r\n                for
+    (let i = (this.canvas.transform.childCount - 1); i >= 0; i--) {\r\n                   
+    const ui = this.canvas.transform.GetChild(i);\r\n                    if (ui.name
+    == TypeManager_1.LoadingType.Start) {\r\n                        return ui.gameObject;\r\n                   
+    }\r\n                }\r\n                return null;\r\n            case TypeManager_1.LoadingType.Teleport:\r\n               
+    for (let i = (this.canvas.transform.childCount - 1); i >= 0; i--) {\r\n                   
+    const ui = this.canvas.transform.GetChild(i);\r\n                    if (ui.name
+    == TypeManager_1.LoadingType.Teleport) {\r\n                        return ui.gameObject;\r\n                   
+    }\r\n                }\r\n                return null;\r\n            default:\r\n               
+    return null;\r\n        }\r\n    }\r\n    /* Get Fade Animator */\r\n    GetFadeAnimator(type)
+    {\r\n        switch (type.toString()) {\r\n            case TypeManager_1.LoadingType.Start:\r\n               
+    return null;\r\n            case TypeManager_1.LoadingType.Teleport:\r\n               
+    return null;\r\n            // case LoadingType.Fade_Horror:\r\n            //    
+    if(!this.fadeAnim) {\r\n            //         for(let i=(this.canvas.transform.childCount-1);
+    i>=0; i--) {\r\n            //             const ui = this.canvas.transform.GetChild(i);\r\n           
+    //             if(ui.name == LoadingType.Fade_Horror) {\r\n            //                
+    this.fadeAnim = ui.GetComponent<Animator>();\r\n            //                
+    i = -1;\r\n            //             }\r\n            //         }\r\n           
+    //     }\r\n            //     return this.fadeAnim;\r\n            default:\r\n               
+    return null;\r\n        }\r\n    }\r\n}\r\nexports.default = UIManager;\r\n/*
+    Singleton */\r\nUIManager._instance = null;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVUlNYW5hZ2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiVUlNYW5hZ2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUNBLDZDQUFtRztBQUNuRyxtREFBNkQ7QUFFN0QsaURBQXFEO0FBQ3JELCtDQUFvRDtBQUNwRCxpRUFBMEQ7QUFDMUQsa0RBQTJDO0FBQzNDLCtDQUF3QztBQUN4QywrQ0FBNEQ7QUFFNUQsTUFBcUIsU0FBVSxTQUFRLHFDQUFxQjtJQUlqRCxNQUFNLEtBQUssUUFBUTtRQUN0QixJQUFJLElBQUksQ0FBQyxTQUFTLEtBQUssSUFBSSxFQUFFO1lBQ3pCLElBQUksQ0FBQyxTQUFTLEdBQUcsd0JBQVUsQ0FBQyxnQkFBZ0IsU0FBQyxTQUFTLEVBQUcsQ0FBQztZQUMxRCxJQUFJLElBQUksQ0FBQyxTQUFTLEtBQUssSUFBSSxFQUFFO2dCQUN6QixJQUFJLENBQUMsU0FBUyxHQUFHLElBQUksd0JBQVUsQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLENBQUMsWUFBWSxTQUFDLFNBQVMsRUFBRyxDQUFDO2FBQzdFO1NBQ0o7UUFDRCxPQUFPLElBQUksQ0FBQyxTQUFTLENBQUM7SUFDMUIsQ0FBQztJQVVELElBQVcsTUFBTSxLQUFpQixPQUFPLElBQUksQ0FBQyxPQUFPLENBQUMsQ0FBQyxDQUFDO0lBQ3hELElBQVcsTUFBTSxDQUFDLEtBQWlCO1FBQy9CLElBQUcsQ0FBQyxJQUFJLENBQUMsT0FBTyxFQUFFO1lBQ2QsSUFBSSxDQUFDLGNBQWMsQ0FBQyxLQUFLLENBQUMsQ0FBQztTQUM5QjthQUFNO1lBQ0gsT0FBTyxDQUFDLEtBQUssQ0FBQyxtQkFBSyxDQUFDLGNBQWMsQ0FBQyxDQUFDO1NBQ3ZDO0lBQ0wsQ0FBQztJQU9PLEtBQUs7UUFDVCxJQUFJLFNBQVMsQ0FBQyxTQUFTLEtBQUssSUFBSSxJQUFJLFNBQVMsQ0FBQyxTQUFTLEtBQUssSUFBSSxFQUFFO1lBQzlELHdCQUFVLENBQUMsT0FBTyxDQUFDLElBQUksQ0FB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","assetPath":"Assets/Zepeto
+    Multiplay Component/ZepetoScript/Managers/UIManager.ts","manifest":{"properties":[{"assembly":"UnityEngine.CoreModule","name":"canvas","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"UI
+    Manager Field\""]},{"name":"SerializeField","args":[]}]},{"assembly":"ZEPETO.World","name":"multiplay","type":"ZEPETO.World.ZepetoWorldMultiplay","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"","name":"room","type":"ZEPETO.Multiplay.Room","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"buttonPanel","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"All
+    range\""]},{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"screenShotModule","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]}],"name":"UIManager","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 6d853983547db32b59283c38e3124c0a
+  onlyWriteTrigger: 0

@@ -1,0 +1,73 @@
+fileFormatVersion: 2
+guid: 2c78780a86e482343aef9064a230b20a
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst LookAt_1 = require(\"../Sample
+    Code/LookAt\");\r\nconst GameManager_1 = require(\"./GameManager\");\r\nconst
+    TypeManager_1 = require(\"./TypeManager\");\r\nconst UIManager_1 = require(\"./UIManager\");\r\nclass
+    PoseAnimationManager extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor()
+    {\r\n        super(...arguments);\r\n        this.poseDatas = [];\r\n    }\r\n   
+    get localSessionId() { return this._localSessionId; }\r\n    set localSessionId(value)
+    { this._localSessionId = value; }\r\n    /* GameManager */\r\n    RemoteStart(sessionId)
+    {\r\n        this.localSessionId = sessionId;\r\n        /* Init */\r\n       
+    this.SetInitPoseZone();\r\n    }\r\n    /* Init Pose Zone */\r\n    SetInitPoseZone()
+    {\r\n        for (let i = 0; i < this.transform.childCount; i++) {\r\n           
+    const zone = this.transform.GetChild(i);\r\n            const buttonGroup = zone.GetChild(0);\r\n           
+    for (let i = 0; i < buttonGroup.childCount; i++) {\r\n                const lookAt
+    = buttonGroup.GetChild(i).GetChild(0).GetComponent($typeof(LookAt_1.default));\r\n               
+    const buttonObject = buttonGroup.GetChild(i).gameObject;\r\n                const
+    data = {\r\n                    isHasPoint: true,\r\n                    buttonName:
+    buttonObject.name,\r\n                    targetName: lookAt.scriptTarget.name,\r\n                   
+    location: lookAt.scriptTarget.transform,\r\n                    lookAt: lookAt,\r\n                   
+    buttonObject: buttonObject,\r\n                };\r\n                this.poseDatas.push(data);\r\n           
+    }\r\n        }\r\n    }\r\n    /* Pose Room Handler */\r\n    SwitchPoseData(message)
+    {\r\n        this.PlayPose(message.OwnerSessionId, message.Name, message.isPlay,
+    +message.Type);\r\n    }\r\n    /* Pose */\r\n    PlayPose(sessionId, buttonName,
+    isPlay, buttonType) {\r\n        console.log(`[PlayPose] ${sessionId} ${buttonName}
+    ${isPlay} ${TypeManager_1.ButtonType[buttonType]}`);\r\n        /* Get pose Data
+    */\r\n        const data = this.GetPoseData(buttonName);\r\n        if (!data)\r\n           
+    return console.error(TypeManager_1.ERROR.NOT_FOUND_ITEM);\r\n        /* Character
+    Set */\r\n        const character = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.GetPlayer(sessionId).character;\r\n       
+    if (isPlay)\r\n            character.Teleport(data.location.position, data.location.rotation);\r\n       
+    /* Local */\r\n        if (this.localSessionId == sessionId) {\r\n           
+    this.ButtonsVisibler(!isPlay);\r\n            const xxxState = +buttonType;\r\n           
+    GameManager_1.default.instance.SetXXXState(xxxState, isPlay);\r\n           
+    if (isPlay)\r\n                this.StartCoroutine(this.OnMoveChecker(buttonName));\r\n       
+    }\r\n        else {\r\n            this.ButtonVisibler(data.lookAt, data.buttonObject,
+    !isPlay);\r\n        }\r\n    }\r\n    /* Find Pose Data */\r\n    GetPoseData(buttonName)
+    {\r\n        for (const data of this.poseDatas) {\r\n            if (data.buttonName
+    == buttonName) {\r\n                return data;\r\n            }\r\n       
+    }\r\n        return null;\r\n    }\r\n    /* Player Move Check */\r\n    *OnMoveChecker(buttonName,
+    buttonType = 0) {\r\n        UIManager_1.default.instance.MainButtonPanelVisibler(false);\r\n       
+    const character = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.GetPlayer(this.localSessionId).character;\r\n       
+    while (true) {\r\n            if (character.tryJump || character.tryMove)\r\n               
+    break;\r\n            yield null;\r\n        }\r\n        GameManager_1.default.instance.PoseAnimationStop(buttonName,
+    buttonType);\r\n        UIManager_1.default.instance.MainButtonPanelVisibler(true);\r\n   
+    }\r\n    /* Button Visibler */\r\n    ButtonVisibler(lookAt, button, isVisible)
+    {\r\n        button.SetActive(isVisible);\r\n        isVisible ? lookAt.RemoteStartLooking()
+    : lookAt.RemoteStopLooking();\r\n    }\r\n    ButtonsVisibler(isVisible) {\r\n       
+    for (const data of this.poseDatas) {\r\n            this.ButtonVisibler(data.lookAt,
+    data.buttonObject, isVisible);\r\n        }\r\n    }\r\n}\r\nexports.default
+    = PoseAnimationManager;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiUG9zZUFuaW1hdGlvbk1hbmFnZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJQb3NlQW5pbWF0aW9uTWFuYWdlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUF5QztBQUN6Qyw2RUFBNEQ7QUFDNUQsaURBQXFEO0FBQ3JELGtEQUEyQztBQUMzQywrQ0FBd0M7QUFDeEMsK0NBQXNFO0FBQ3RFLDJDQUFvQztBQUVwQyxNQUFxQixvQkFBcUIsU0FBUSxxQ0FBcUI7SUFBdkU7O1FBTVksY0FBUyxHQUFlLEVBQUUsQ0FBQztJQThGdkMsQ0FBQztJQWhHRyxJQUFXLGNBQWMsS0FBYSxPQUFPLElBQUksQ0FBQyxlQUFlLENBQUMsQ0FBQyxDQUFDO0lBQ3BFLElBQVksY0FBYyxDQUFDLEtBQWEsSUFBSSxJQUFJLENBQUMsZUFBZSxHQUFHLEtBQUssQ0FBQyxDQUFDLENBQUM7SUFHM0UsaUJBQWlCO0lBQ1YsV0FBVyxDQUFDLFNBQWdCO1FBQy9CLElBQUksQ0FBQyxjQUFjLEdBQUcsU0FBUyxDQUFDO1FBRWhDLFVBQVU7UUFDVixJQUFJLENBQUMsZUFBZSxFQUFFLENBQUM7SUFDM0IsQ0FBQztJQUVELG9CQUFvQjtJQUNaLGVBQWU7UUFDbkIsS0FBSSxJQUFJLENBQUMsR0FBQyxDQUFDLEVBQUUsQ0FBQyxHQUFDLElBQUksQ0FBQyxTQUFTLENBQUMsVUFBVSxFQUFFLENBQUMsRUFBRSxFQUFFO1lBQzNDLE1BQU0sSUFBSSxHQUFHLElBQUksQ0FBQyxTQUFTLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQyxDQUFDO1lBQ3hDLE1BQU0sV0FBVyxHQUFHLElBQUksQ0FBQyxRQUFRLENBQUMsQ0FBQyxDQUFDLENBQUM7WUFFckMsS0FBSSxJQUFJLENBQUMsR0FBQyxDQUFDLEVBQUUsQ0FBQyxHQUFDLFdBQVcsQ0FBQyxVQUFVLEVBQUUsQ0FBQyxFQUFFLEVBQUU7Z0JBQ3hDLE1BQU0sTUFBTSxHQUFHLFdBQVcsQ0FBQyxRQUFRLENBQUMsQ0FBQyxDQUFDLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQyxDQUFDLFlBQVksU0FBQyxnQkFBTSxFQUFHLENBQUM7Z0JBQzFFLE1BQU0sWUFBWSxHQUFHLFdBQVcsQ0FBQyxRQUFRLENBQUMsQ0FBQyxDQUFDLENBQUMsVUFBVSxDQUFDO2dCQUN4RCxNQUFNLElBQUksR0FBWTtvQkFDbEIsVUFBVSxFQUFFLElBQUk7b0JBQ2hCLFVBQVUsRUFBRSxZQUFZLENBQUMsSUFBSTtvQkFDN0IsVUFBVSxFQUFFLE1BQU0sQ0FBQyxZQUFZLENBQUMsSUFBSTtvQkFDcEMsUUFBUSxFQUFFLE1BQU0sQ0FBQyxZQUFZLENBQUMsU0FBUztvQkFDdkMsTUFBTSxFQUFFLE1BQU07b0JBQ2QsWUFBWSxFQUFFLFlBQVk7aUJBQzdCLENBQUE7Z0JBQ0QsSUFBSSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUM7YUFDN0I7U0FDSjtJQUNMLENBQUM7SUFFRCx1QkFBdUI7SUFDaEIsY0FBYyxDQUFDLE9BQVc7UUFDN0IsSUFBSSxDQUFDLFFBQVEsQ0FBQyxPQUFPLENBQUMsY0FBYyxFQUFFLE9BQU8sQ0FBQyxJQUFJLEVBQUUsT0FBTyxDQUFDLE1BQU0sRUFBRSxDQUFDLE9BQU8sQ0FBQyxJQUFJLENBQUMsQ0FBQztJQUN2RixDQUFDO0lBRUQsVUFBVTtJQUNGLFFBQVEsQ0FBQyxTQUFnQixFQUFFLFVBQWlCLEVBQUUsTUFBYyxFQUFFLFVBQXFCO1FBQ3ZGLE9BQU8sQ0FBQyxHQUFHLENBQUMsY0FBYyxTQUFTLElBQUksVUFBVSxJQUFJLE1BQU0sSUFBSSx3QkFBVSxDQUFDLFVBQVUsQ0FBQyxFQUFFLENBQUMsQ0FBQztRQUV6RixtQkFBbUI7UUFDbkIsTUFBTSxJQUFJLEdBQUcsSUFBSSxDQUFDLFdBQVcsQ0FBQyxVQUFVLENBQUMsQ0FBQztRQUMxQyxJQUFHLENBQUMsSUFBSTtZQUFFLE9BQU8sT0FBTyxDQUFDLEtBQUssQ0FBQyxtQkFBSyxDQUFDLGNBQWMsQ0FBQyxDQUFDO1FBRXJELG1CQUFtQjtRQUNuQixNQUFNLFNBQVMsR0FBRywyQ0FBYSxDQUFDLFFBQVEsQ0FBQyxTQUFTLENBQUMsU0FBUyxDQUFDLENBQUMsU0FBUyxDQUFDO1FBQ3hFLElBQUcsTUFBTTtZQUFFLFNBQVMsQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxRQUFRLEVBQUUsSUFBSSxDQUFDLFFBQVEsQ0FBQyxRQUFRLENBQUMsQ0FBQztRQUU5RSxXQUFXO1FBQ1gsSUFBRyxJQUFJLENBQUMsY0FBYyxJQUFJLFNBQVMsRUFBRTtZQUNqQyxJQUFJLENBQUMsZUFBZSxDQUFDLENBQUMsTUFBTSxDQUFDLENBQUM7WUFDOUIsTUFBTSxRQUFRLEdBQUcsQ0FBQyxVQUFzQixDQUFDO1lBQ3pDLHFCQUFXLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxRQUFRLEVBQUUsTUFBTSxDQUFDLENBQUM7WUFDbkQsSUFBRyxNQUFNO2dCQUFFLElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLGFBQWEsQ0FBQyxVQUFVLENBQUMsQ0FBQyxDQUFDO1NBRWxFO2FBQU07WUFDSCxJQUFJLENBQUMsY0FBYyxDQUFDLElBQUksQ0FBQyxNQUFNLEVBQUUsSUFBSSxDQUFDLFlBQVksRUFBRSxDQUFDLE1BQU0sQ0FBQyxDQUFDO1NBQ2hFO0lBQ0wsQ0FBQztJQUVELG9CQUFvQjtJQUNiLFdBQVcsQ0FBQyxVQUFpQjtRQUNoQyxLQUFJLE1BQU0sSUFBSSxJQUFJLElBQUksQ0FBQyxTQUFTLEVBQUU7WUFDOUIsSUFBRyxJQUFJLENBQUMsVUFBVSxJQUFJLFVBQVUsRUFBRTtnQkFDOUIsT0FBTyxJQUFJLENBQUM7YUFDZjtTQUNKO1FBQ0QsT0FBTyxJQUFJLENBQUM7SUFDaEIsQ0FBQztJQUVELHVCQUF1QjtJQUNmLENBQUUsYUFBYSxDQUFDLFVBQWlCLEVBQUUsYUFBd0IsQ0FBQztRQUNoRSxtQkFBUyxDQUFDLFFBQVEsQ0FBQyx1QkFBdUIsQ0FBQyxLQUFLLENBQUMsQ0FBQztRQUNsRCxNQUFNLFNBQVMsR0FBRywyQ0FBYSxDQUFDLFFBQVEsQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLGNBQWMsQ0FBQyxDQUFDLFNBQVMsQ0FBQztRQUNsRixPQUFNLElBQUksRUFBRTtZQUNSLElBQUcsU0FBUyxDQUFDLE9BQU8sSUFBSSxTQUFTLENBQUMsT0FBTztnQkFBRSxNQUFNO1lBQ2pELE1BQU0sSUFBSSxDQUFDO1NBQ2Q7UUFDRCxxQkFBVyxDQUFDLFFBQVEsQ0FBQyxpQkFBaUIsQ0FBQyxVQUFVLEVBQUUsVUFBVSxDQUFDLENBQUM7UUFDL0QsbUJBQVMsQ0FBQyxRQUFRLENBQUMsdUJBQXVCLENBQUMsSUFBSSxDQUFDLENBQUM7SUFDckQsQ0FBQztJQUVELHFCQUFxQjtJQUNkLGNBQWMsQ0FBQyxNQUFhLEVBQUUsTUFBaUIsRUFBRSxTQUFpQjtRQUNyRSxNQUFNLENBQUMsU0FBUyxDQUFDLFNBQVMsQ0FBQyxDQUFDO1FBQzVCLFNBQVMsQ0FBQyxDQUFDLENBQUMsTUFBTSxDQUFDLGtCQUFrQixFQUFFLENBQUMsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxpQkFBaUIsRUFBRSxDQUFDO0lBQ3pFLENBQUM7SUFDTSxlQUFlLENBQUMsU0FBaUI7UUFDcEMsS0FBSSxNQUFNLElBQUksSUFBSSxJQUFJLENBQUMsU0FBUyxFQUFFO1lBQzlCLElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxJQUFJLENBQUMsWUFBWSxFQUFFLFNBQVMsQ0FBQyxDQUFDO1NBQ2xFO0lBQ0wsQ0FBQztDQUVKO0FBcEdELHVDQW9HQyJ9","assetPath":"Assets/Zepeto
+    Multiplay Component/ZepetoScript/Managers/PoseAnimationManager.ts","manifest":{"properties":[],"name":"PoseAnimationManager","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 4bfb48300895026e648b2023ff112f96
+  onlyWriteTrigger: 0

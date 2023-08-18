@@ -1,0 +1,52 @@
+fileFormatVersion: 2
+guid: 01ba239b2dad7c3488d872e7ae2f650b
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    UnityEngine_UI_1 = require(\"UnityEngine.UI\");\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    mgLog_1 = require(\"../../CommonUtil/mgLog\");\r\nconst MinigameJGManager_1 =
+    require(\"./MinigameJGManager\");\r\nconst MinigameNTManager_1 = require(\"./MinigameNTManager\");\r\nclass
+    UIHallGameover extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor()
+    {\r\n        super(...arguments);\r\n        this._minigameManager = null;\r\n   
+    }\r\n    get minigameManager() {\r\n        return this._minigameManager;\r\n   
+    }\r\n    set minigameManager(value) {\r\n        if (value instanceof MinigameJGManager_1.default)
+    {\r\n            mgLog_1.mgLog.log(''UIHallGameover set control MinigameJGManager'');\r\n       
+    }\r\n        else if (value instanceof MinigameNTManager_1.default) {\r\n           
+    mgLog_1.mgLog.log(''UIHallGameover set control MinigameNTManager'');\r\n       
+    }\r\n        this._minigameManager = value;\r\n    }\r\n    Start() {\r\n       
+    this.buttonRetry?.onClick.AddListener(() => {\r\n            this._minigameManager?.onGameRetry();\r\n           
+    this.gameObject.SetActive(false);\r\n        });\r\n        this.buttonStop?.onClick.AddListener(()
+    => {\r\n            this._minigameManager?.onGameStop();\r\n            this.gameObject.SetActive(false);\r\n       
+    });\r\n        this.buttonClose?.onClick.AddListener(() => {\r\n            this._minigameManager?.onGameStop();\r\n           
+    this.gameObject.SetActive(false);\r\n        });\r\n    }\r\n    onOpen() {\r\n       
+    this.SetValue();\r\n        this.gameObject.SetActive(true);\r\n    }\r\n   
+    SetValue() {\r\n        let isSuccessNT = MinigameNTManager_1.default.instance.lastgameSuccess;\r\n       
+    let isSuccessJG = MinigameJGManager_1.default.instance.lastgameSuccess;\r\n       
+    this.toggleNT.isOn = isSuccessNT;\r\n        this.toggleJG.isOn = isSuccessJG;\r\n       
+    let badgeScore = 0;\r\n        if (isSuccessNT == true) {\r\n            badgeScore
+    += 1;\r\n        }\r\n        if (isSuccessJG == true) {\r\n            badgeScore
+    += 1;\r\n        }\r\n        if (badgeScore == 2) {\r\n            this.fullBadge.SetActive(true);\r\n           
+    this.halfBadge.SetActive(false);\r\n        }\r\n        else if (badgeScore
+    == 1) {\r\n            this.fullBadge.SetActive(false);\r\n            this.halfBadge.SetActive(true);\r\n       
+    }\r\n        else {\r\n            this.fullBadge.SetActive(false);\r\n           
+    this.halfBadge.SetActive(false);\r\n        }\r\n    }\r\n}\r\nexports.default
+    = UIHallGameover;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVUlIYWxsR2FtZW92ZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJVSUhhbGxHYW1lb3Zlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUF5QztBQUN6QyxtREFBZ0Q7QUFDaEQsaURBQXFEO0FBQ3JELGtEQUErQztBQUUvQywyREFBb0Q7QUFDcEQsMkRBQW9EO0FBRXBELE1BQXFCLGNBQWUsU0FBUSxxQ0FBcUI7SUFBakU7O1FBWVkscUJBQWdCLEdBQTJCLElBQUksQ0FBQztJQW9GNUQsQ0FBQztJQW5GRyxJQUFXLGVBQWU7UUFDdEIsT0FBTyxJQUFJLENBQUMsZ0JBQWdCLENBQUM7SUFDakMsQ0FBQztJQUVELElBQVcsZUFBZSxDQUFDLEtBQTZCO1FBQ3BELElBQUksS0FBSyxZQUFZLDJCQUFpQixFQUFHO1lBQ3JDLGFBQUssQ0FBQyxHQUFHLENBQUMsOENBQThDLENBQUMsQ0FBQztTQUU3RDthQUFNLElBQUksS0FBSyxZQUFZLDJCQUFpQixFQUFDO1lBQzFDLGFBQUssQ0FBQyxHQUFHLENBQUMsOENBQThDLENBQUMsQ0FBQztTQUM3RDtRQUNELElBQUksQ0FBQyxnQkFBZ0IsR0FBRyxLQUFLLENBQUM7SUFDbEMsQ0FBQztJQUdELEtBQUs7UUFDRCxJQUFJLENBQUMsV0FBVyxFQUFFLE9BQU8sQ0FBQyxXQUFXLENBQUMsR0FBRyxFQUFFO1lBQ3ZDLElBQUksQ0FBQyxnQkFBZ0IsRUFBRSxXQUFXLEVBQUUsQ0FBQztZQUNyQyxJQUFJLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQztRQUNyQyxDQUFDLENBQUMsQ0FBQztRQUVILElBQUksQ0FBQyxVQUFVLEVBQUUsT0FBTyxDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUU7WUFDdEMsSUFBSSxDQUFDLGdCQUFnQixFQUFFLFVBQVUsRUFBRSxDQUFDO1lBQ3BDLElBQUksQ0FBQyxVQUFVLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQ3JDLENBQUMsQ0FBQyxDQUFDO1FBRUgsSUFBSSxDQUFDLFdBQVcsRUFBRSxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtZQUN2QyxJQUFJLENBQUMsZ0JBQWdCLEVBQUUsVUFBVSxFQUFFLENBQUM7WUFDcEMsSUFBSSxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUM7UUFDckMsQ0FBQyxDQUFDLENBQUM7SUFFUCxDQUFDO0lBSU0sTUFBTTtRQUVULElBQUksQ0FBQyxRQUFRLEVBQUUsQ0FBQztRQUNoQixJQUFJLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxJQUFJLENBQUMsQ0FBQztJQUNwQyxDQUFDO0lBR00sUUFBUTtRQUdYLElBQUksV0FBVyxHQUFHLDJCQUFpQixDQUFDLFFBQVEsQ0FBQyxlQUFlLENBQUM7UUFDN0QsSUFBSSxXQUFXLEdBQUcsMkJBQWlCLENBQUMsUUFBUSxDQUFDLGVBQWUsQ0FBQztRQUU3RCxJQUFJLENBQUMsUUFBUSxDQUFDLElBQUksR0FBRyxXQUFXLENBQUM7UUFDakMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxJQUFJLEdBQUcsV0FBVyxDQUFDO1FBR2pDLElBQUksVUFBVSxHQUFHLENBQUMsQ0FBQztRQUNuQixJQUFJLFdBQVcsSUFBSSxJQUFJLEVBQUU7WUFDckIsVUFBVSxJQUFJLENBQUMsQ0FBQztTQUNuQjtRQUVELElBQUksV0FBVyxJQUFJLElBQUksRUFBRTtZQUNyQixVQUFVLElBQUksQ0FBQyxDQUFDO1NBQ25CO1FBRUQsSUFBSSxVQUFVLElBQUksQ0FBQyxFQUFHO1lBQ2xCLElBQUksQ0FBQyxTQUFTLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQyxDQUFDO1lBQy9CLElBQUksQ0FBQyxTQUFTLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1NBQ25DO2FBQ0ksSUFBSSxVQUFVLElBQUksQ0FBQyxFQUFFO1lBQ3RCLElBQUksQ0FBQyxTQUFTLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1lBQ2hDLElBQUksQ0FBQyxTQUFTLENBQUMsU0FBUyxDQUFDLElBQUksQ0FBQyxDQUFDO1NBQ2xDO2FBRUQ7WUFDSSxJQUFJLENBQUMsU0FBUyxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQztZQUNoQyxJQUFJLENBQUMsU0FBUyxDQUFDLFNBQVMsQ0FBQyxLQUFLLENBQUMsQ0FBQztTQUNuQztJQUdMLENBQUM7Q0FPSjtBQWhHRCxpQ0FnR0MifQ==","assetPath":"Assets/ZepetoScripts/WonderHall/Minigame/UIHallGameover.ts","manifest":{"properties":[{"assembly":"UnityEngine.UI","name":"toggleNT","type":"UnityEngine.UI.Toggle","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"toggleJG","type":"UnityEngine.UI.Toggle","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"buttonRetry","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"buttonStop","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.UI","name":"buttonClose","type":"UnityEngine.UI.Button","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"fullBadge","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"halfBadge","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"UIHallGameover","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 242b06f396c83c01f3013c9f6c00b2c1
+  onlyWriteTrigger: 0
