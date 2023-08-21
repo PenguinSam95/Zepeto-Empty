@@ -51,19 +51,19 @@ PrefabInstance:
       objectReference: {fileID: 1930472730}
     - target: {fileID: 5623198192528508448, guid: 178f0c1ffcc123641b736fd2547399bd, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5623198192528508448, guid: 178f0c1ffcc123641b736fd2547399bd, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5623198192528508448, guid: 178f0c1ffcc123641b736fd2547399bd, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5812129913045961091, guid: 178f0c1ffcc123641b736fd2547399bd, type: 3}
       propertyPath: m_Name
-      value: Button_Chairs
+      value: Button_Chairs (2)
       objectReference: {fileID: 0}
     - target: {fileID: 5812129913045961092, guid: 178f0c1ffcc123641b736fd2547399bd, type: 3}
       propertyPath: m_RootOrder
@@ -71,7 +71,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5812129913045961092, guid: 178f0c1ffcc123641b736fd2547399bd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 5812129913045961092, guid: 178f0c1ffcc123641b736fd2547399bd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -79,7 +79,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5812129913045961092, guid: 178f0c1ffcc123641b736fd2547399bd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5812129913045961092, guid: 178f0c1ffcc123641b736fd2547399bd, type: 3}
       propertyPath: m_LocalRotation.w

@@ -1178,18 +1178,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button_Chairs (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 5982544249841916871, guid: 84629deb6e4faca49bc26fa6de75c95c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5982544249841916871, guid: 84629deb6e4faca49bc26fa6de75c95c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5982544249841916871, guid: 84629deb6e4faca49bc26fa6de75c95c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84629deb6e4faca49bc26fa6de75c95c, type: 3}
 --- !u!4 &1104139375 stripped

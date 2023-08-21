@@ -7,8 +7,7 @@ TagManager:
   - Trigger
   - SpawnPoint
   - Loading
-  - BumperCar
-  - Weapon
+  - LocalPlayer
   layers:
   - Default
   - TransparentFX

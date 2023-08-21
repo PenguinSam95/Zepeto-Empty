@@ -198,8 +198,11 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
         playerStateSync.isUseInjectSpeed = isUseInjectSpeed;
 
         if(isLocal) {
+            console.log(` +++++++++++++ Tags.LocalPlayer 1 ${Tags.LocalPlayer } `);
             zepetoPlayer.character.transform.gameObject.tag = Tags.LocalPlayer;
+            console.log(` +++++++++++++ Tags.LocalPlayer 2 ${Tags.LocalPlayer } `);
             GameManager.instance.SetLocalPlayer(player);
+            console.log(` +++++++++++++ Tags.LocalPlayer 3 ${Tags.LocalPlayer } `);
         }
     }
 
