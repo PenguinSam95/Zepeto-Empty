@@ -4,6 +4,7 @@ import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
 import { ButtonType } from '../Managers/TypeManager';
 import UIManager from '../Managers/UIManager';
 import LookAtTrigger from './LookAtTrigger';
+import GameManager from '../Managers/GameManager';
 
 export default class LookAt extends ZepetoScriptBehaviour {
 
@@ -13,8 +14,8 @@ export default class LookAt extends ZepetoScriptBehaviour {
     private collider: Collider;
     private character: GameObject;
     private isLooking: boolean;
-    private playerCam: Transform;
-    private wait: WaitForFixedUpdate;
+    // private playerCam: Transform;
+    // private wait: WaitForFixedUpdate;
     
     /* public Properties */
     @SerializeField() private _buttonType: ButtonType = ButtonType.NULL;
@@ -83,15 +84,15 @@ export default class LookAt extends ZepetoScriptBehaviour {
     /* Locking Script */
     private * LookAtLocalPlayer() {
         /* Set Init */
-        if(!this.playerCam) this.playerCam = ZepetoPlayers.instance.LocalPlayer.zepetoCamera.cameraParent.GetChild(0).transform;
-        if(!this.wait) this.wait = new WaitForFixedUpdate;
+        const playerCam = ZepetoPlayers.instance.ZepetoCamera.cameraParent.GetChild(0).transform;
+        const wait = GameManager.instance.waitFixedUpdate;
 
         /* Main Script */
-        this.transform.LookAt(this.playerCam.position);
+        this.transform.LookAt(playerCam.position);
         this.isLooking = true;
         while(this.isLooking) {
-            yield this.wait;
-            this.transform.LookAt(this.playerCam.position);
+            yield wait;
+            this.transform.LookAt(playerCam.position);
         }
     }
 }

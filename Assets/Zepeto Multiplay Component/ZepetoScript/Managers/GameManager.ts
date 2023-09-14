@@ -1,4 +1,4 @@
-import { Camera, Coroutine, GameObject, HumanBodyBones, Mathf, MeshRenderer, Quaternion, Random, Transform, Vector3, WaitForSeconds } from 'UnityEngine';
+import { Camera, Coroutine, GameObject, HumanBodyBones, Mathf, MeshRenderer, Quaternion, Random, Transform, Vector3, WaitForFixedUpdate, WaitForSeconds } from 'UnityEngine';
 import { UIZepetoPlayerControl, ZepetoPlayers } from 'ZEPETO.Character.Controller';
 import { Room, RoomData } from 'ZEPETO.Multiplay';
 import { Player } from 'ZEPETO.Multiplay.Schema';
@@ -39,7 +39,9 @@ export default class GameManager extends ZepetoScriptBehaviour {
     private player: Player;
     private joyCon: UIZepetoPlayerControl;
     private wait: WaitForSeconds = new WaitForSeconds(1);
+    private waitFixed: WaitForFixedUpdate = new WaitForFixedUpdate();
     public get waitOneSec() : WaitForSeconds { return this.wait }
+    public get waitFixedUpdate() : WaitForFixedUpdate { return this.waitFixed }
     
     /* Mangager Field */
     @Header("Other Managers")
