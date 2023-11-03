@@ -1,0 +1,63 @@
+fileFormatVersion: 2
+guid: af61e9de60fc2634e9ada8611c86af5c
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst GameManager_1 = require(\"../Managers/GameManager\");\r\nconst
+    TypeManager_1 = require(\"../Managers/TypeManager\");\r\nconst UIManager_1 =
+    require(\"../Managers/UIManager\");\r\nclass TriggerController extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\r\n    constructor() {\r\n        super(...arguments);\r\n        /* Properties
+    */\r\n        this._triggerType = TypeManager_1.TriggerType.NONE;\r\n       
+    this.isUIActivate_Once = false;\r\n    }\r\n    get triggerType() { return this._triggerType;
+    }\r\n    get scriptTarget() { return this._scriptTarget; }\r\n    /* Touch Collider
+    */\r\n    OnTriggerEnter(collider) {\r\n        if (this.Trigger(collider))\r\n           
+    this.SwitchingTriggerEnter();\r\n    }\r\n    OnTriggerExit(collider) {\r\n       
+    if (this.Trigger(collider))\r\n            this.SwitchingTriggerExit();\r\n   
+    }\r\n    Trigger(collider) {\r\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)
+    {\r\n            console.warn(TypeManager_1.ERROR.NOT_FOUND_LOCAL_PLAYER);\r\n           
+    return false;\r\n        }\r\n        if (collider.CompareTag(TypeManager_1.Tags.LocalPlayer)
+    || collider.CompareTag(TypeManager_1.Tags.Trigger)) {\r\n            return true;\r\n       
+    }\r\n    }\r\n    /* Enter */\r\n    SwitchingTriggerEnter() {\r\n        switch
+    (+this.triggerType) {\r\n            case TypeManager_1.TriggerType.CameraChange_Inside:\r\n           
+    case TypeManager_1.TriggerType.CameraChange_Outside:\r\n                break;\r\n           
+    case TypeManager_1.TriggerType.UIActivate_Once:\r\n                if (this.isUIActivate_Once)\r\n                   
+    return;\r\n                this.isUIActivate_Once = this.UIActivate();\r\n               
+    break;\r\n            case TypeManager_1.TriggerType.UIActivate:\r\n               
+    this.UIActivate();\r\n                break;\r\n            case TypeManager_1.TriggerType.ObjectActivate:\r\n               
+    this.scriptTarget.gameObject.SetActive(true);\r\n                break;\r\n           
+    case TypeManager_1.TriggerType.ObjectDeactivate:\r\n                this.scriptTarget.gameObject.SetActive(false);\r\n               
+    break;\r\n        }\r\n    }\r\n    /* Exit */\r\n    SwitchingTriggerExit()
+    {\r\n        switch (+this.triggerType) {\r\n            case TypeManager_1.TriggerType.CameraChange_Inside:\r\n               
+    GameManager_1.default.instance.ChangeCamOutdoor(false, true);\r\n               
+    break;\r\n            case TypeManager_1.TriggerType.CameraChange_Outside:\r\n               
+    GameManager_1.default.instance.ChangeCamOutdoor(true, true);\r\n               
+    break;\r\n            case TypeManager_1.TriggerType.UIActivate_Once:\r\n               
+    break;\r\n            case TypeManager_1.TriggerType.UIActivate:\r\n               
+    this.UIDeactivate();\r\n                break;\r\n            case TypeManager_1.TriggerType.ObjectActivate:\r\n               
+    this.scriptTarget.gameObject.SetActive(false);\r\n                break;\r\n           
+    case TypeManager_1.TriggerType.ObjectDeactivate:\r\n                break;\r\n       
+    }\r\n    }\r\n    /* UI Active */\r\n    UIActivate() {\r\n        if (UIManager_1.default.instance.openUI)\r\n           
+    return false;\r\n        UIManager_1.default.instance.openUI = this.scriptTarget.gameObject;\r\n       
+    return true;\r\n    }\r\n    UIDeactivate() {\r\n        UIManager_1.default.instance.DeactiveOpenUI_Target(this.scriptTarget.gameObject);\r\n   
+    }\r\n}\r\nexports.default = TriggerController;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVHJpZ2dlckNvbnRyb2xsZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJUcmlnZ2VyQ29udHJvbGxlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUFrRDtBQUNsRCw2RUFBNEQ7QUFDNUQsaURBQXFEO0FBQ3JELHlEQUFrRDtBQUNsRCx5REFBbUU7QUFDbkUscURBQThDO0FBRTlDLE1BQXFCLGlCQUFrQixTQUFRLHFDQUFxQjtJQUFwRTs7UUFFSSxnQkFBZ0I7UUFDVSxpQkFBWSxHQUFnQix5QkFBVyxDQUFDLElBQUksQ0FBQztRQUkvRCxzQkFBaUIsR0FBWSxLQUFLLENBQUM7SUFnRi9DLENBQUM7SUFsRkcsSUFBVyxXQUFXLEtBQUssT0FBTyxJQUFJLENBQUMsWUFBWSxDQUFDLENBQUMsQ0FBQztJQUN0RCxJQUFXLFlBQVksS0FBSyxPQUFPLElBQUksQ0FBQyxhQUFhLENBQUMsQ0FBQyxDQUFDO0lBSXhELG9CQUFvQjtJQUNwQixjQUFjLENBQUMsUUFBa0I7UUFDN0IsSUFBRyxJQUFJLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQztZQUFFLElBQUksQ0FBQyxxQkFBcUIsRUFBRSxDQUFDO0lBQzVELENBQUM7SUFDRCxhQUFhLENBQUMsUUFBa0I7UUFDNUIsSUFBRyxJQUFJLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQztZQUFFLElBQUksQ0FBQyxvQkFBb0IsRUFBRSxDQUFDO0lBQzNELENBQUM7SUFDTyxPQUFPLENBQUMsUUFBa0I7UUFDOUIsSUFBRyxDQUFDLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVcsRUFBRTtZQUFFLE9BQU8sQ0FBQyxJQUFJLENBQUMsbUJBQUssQ0FBQyxzQkFBc0IsQ0FBQyxDQUFDO1lBQUMsT0FBTyxLQUFLLENBQUM7U0FBRTtRQUNyRyxJQUFHLFFBQVEsQ0FBQyxVQUFVLENBQUMsa0JBQUksQ0FBQyxXQUFXLENBQUMsSUFBSSxRQUFRLENBQUMsVUFBVSxDQUFDLGtCQUFJLENBQUMsT0FBTyxDQUFDLEVBQUU7WUFBRSxPQUFPLElBQUksQ0FBQTtTQUFFO0lBQ2xHLENBQUM7SUFFRCxXQUFXO0lBQ0gscUJBQXFCO1FBQ3pCLFFBQU8sQ0FBQyxJQUFJLENBQUMsV0FBVyxFQUFFO1lBQ3RCLEtBQUsseUJBQVcsQ0FBQyxtQkFBbUIsQ0FBRTtZQUN0QyxLQUFLLHlCQUFXLENBQUMsb0JBQW9CO2dCQUNqQyxNQUFNO1lBRVYsS0FBSyx5QkFBVyxDQUFDLGVBQWU7Z0JBQzVCLElBQUcsSUFBSSxDQUFDLGlCQUFpQjtvQkFBRSxPQUFPO2dCQUNsQyxJQUFJLENBQUMsaUJBQWlCLEdBQUcsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO2dCQUMzQyxNQUFNO1lBRVYsS0FBSyx5QkFBVyxDQUFDLFVBQVU7Z0JBQ3ZCLElBQUksQ0FBQyxVQUFVLEVBQUUsQ0FBQztnQkFDbEIsTUFBTTtZQUVWLEtBQUsseUJBQVcsQ0FBQyxjQUFjO2dCQUMzQixJQUFJLENBQUMsWUFBWSxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsSUFBSSxDQUFDLENBQUM7Z0JBQzdDLE1BQU07WUFFVixLQUFLLHlCQUFXLENBQUMsZ0JBQWdCO2dCQUM3QixJQUFJLENBQUMsWUFBWSxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUM7Z0JBQzlDLE1BQU07U0FDYjtJQUNMLENBQUM7SUFFRCxVQUFVO0lBQ0Ysb0JBQW9CO1FBQ3hCLFFBQU8sQ0FBQyxJQUFJLENBQUMsV0FBVyxFQUFFO1lBQ3RCLEtBQUsseUJBQVcsQ0FBQyxtQkFBbUI7Z0JBQ2hDLHFCQUFXLENBQUMsUUFBUSxDQUFDLGdCQUFnQixDQUFDLEtBQUssRUFBRSxJQUFJLENBQUMsQ0FBQztnQkFDbkQsTUFBTTtZQUVWLEtBQUsseUJBQVcsQ0FBQyxvQkFBb0I7Z0JBQ2pDLHFCQUFXLENBQUMsUUFBUSxDQUFDLGdCQUFnQixDQUFDLElBQUksRUFBRSxJQUFJLENBQUMsQ0FBQztnQkFDbEQsTUFBTTtZQUVWLEtBQUsseUJBQVcsQ0FBQyxlQUFlO2dCQUM1QixNQUFNO1lBRVYsS0FBSyx5QkFBVyxDQUFDLFVBQVU7Z0JBQ3ZCLElBQUksQ0FBQyxZQUFZLEVBQUUsQ0FBQztnQkFDcEIsTUFBTTtZQUVWLEtBQUsseUJBQVcsQ0FBQyxjQUFjO2dCQUMzQixJQUFJLENBQUMsWUFBWSxDQUFDLFVBQVUsQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUM7Z0JBQzlDLE1BQU07WUFFVixLQUFLLHlCQUFXLENBQUMsZ0JBQWdCO2dCQUM3QixNQUFNO1NBQ2I7SUFDTCxDQUFDO0lBR0QsZUFBZTtJQUNQLFVBQVU7UUFDZCxJQUFHLG1CQUFTLENBQUMsUUFBUSxDQUFDLE1BQU07WUFBRSxPQUFPLEtBQUssQ0FBQztRQUMzQyxtQkFBUyxDQUFDLFFBQVEsQ0FBQyxNQUFNLEdBQUcsSUFBSSxDQUFDLFlBQVksQ0FBQyxVQUFVLENBQUM7UUFDekQsT0FBTyxJQUFJLENBQUM7SUFFaEIsQ0FBQztJQUVPLFlBQVk7UUFDaEIsbUJBQVMsQ0FBQyxRQUFRLENBQUMscUJBQXFCLENBQUMsSUFBSSxDQUFDLFlBQVksQ0FBQyxVQUFVLENBQUMsQ0FBQztJQUMzRSxDQUFDO0NBQ0o7QUF2RkQsb0NBdUZDIn0=","assetPath":"Assets/Zepeto
+    Multiplay Component/ZepetoScript/Sample Code/TriggerController.ts","manifest":{"properties":[{"assembly":"","name":"_triggerType","type":"TriggerType","isArray":false,"initValue":["NONE"],"enumKeys":["NONE","CameraChange_Inside","CameraChange_Outside","UIActivate_Once","UIActivate","ObjectActivate","ObjectDeactivate"],"enumValues":["-1","100","101","120","121","130","140"],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"_scriptTarget","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]}],"name":"TriggerController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: b10e7579a2d63fbce1d0cc81ab798fa4
+  onlyWriteTrigger: 0

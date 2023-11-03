@@ -1,4 +1,4 @@
-import { Camera, Coroutine, GameObject, HumanBodyBones, Mathf, MeshRenderer, Quaternion, Random, Transform, Vector3, WaitForFixedUpdate, WaitForSeconds } from 'UnityEngine';
+import { Camera, Coroutine, GameObject, HumanBodyBones, Mathf, MeshRenderer, Quaternion, Random, Time, Transform, Vector3, WaitForFixedUpdate, WaitForSeconds } from 'UnityEngine';
 import { UIZepetoPlayerControl, ZepetoPlayers } from 'ZEPETO.Character.Controller';
 import { Room, RoomData } from 'ZEPETO.Multiplay';
 import { Player } from 'ZEPETO.Multiplay.Schema';
@@ -11,7 +11,8 @@ import AnimatorSyncHelper from '../Transform/AnimatorSyncHelper';
 import TransformSyncHelper from '../Transform/TransformSyncHelper';
 import PoseAnimationManager from './PoseAnimationManager';
 import ToastManager from './ToastManager';
-import { Anim, ButtonType, Datas, ERROR, LoadingType, MESSAGE, SendName, TOAST_MESSAGE, XXXState } from './TypeManager';
+import { Anim, ButtonType, CameraOffset, Datas, ERROR, LoadingType, MESSAGE, SendName, TOAST_MESSAGE, XXXState } from './TypeManager';
+import { LanguageType } from '../Lang/TranslateManager';
 import UIManager from './UIManager';
 
 export default class GameManager extends ZepetoScriptBehaviour {
@@ -42,6 +43,13 @@ export default class GameManager extends ZepetoScriptBehaviour {
     private waitFixed: WaitForFixedUpdate = new WaitForFixedUpdate();
     public get waitOneSec() : WaitForSeconds { return this.wait }
     public get waitFixedUpdate() : WaitForFixedUpdate { return this.waitFixed }
+
+    private isOutDoor: boolean = true;
+    private isCamTransition: boolean = false;
+    private CamTransition: Coroutine;
+    private cameraOffset_Indoor: CameraOffset;
+    private cameraOffset_Outdoor: CameraOffset;
+
     
     /* Mangager Field */
     @Header("Other Managers")
@@ -49,6 +57,16 @@ export default class GameManager extends ZepetoScriptBehaviour {
     private poseAnimationManager: PoseAnimationManager;
     private toastManager: ToastManager;
 
+    
+    @Header("** Developer **")
+    @SerializeField() private _editLanguage: boolean = false;
+    @SerializeField() private _editLanguageType: LanguageType = LanguageType.None;
+    public get editLanguage() : boolean { return this._editLanguage; }
+    public get editLanguageType() : LanguageType { return this._editLanguageType; }
+
+
+
+    /*** Main Script ***/
     private Awake() {
         if (GameManager._instance !== null && GameManager._instance !== this) {
             GameObject.Destroy(this.gameObject);
@@ -192,6 +210,13 @@ export default class GameManager extends ZepetoScriptBehaviour {
 
 
 
+
+
+
+
+
+
+
     /** Player **/
     /* Get Local Player */
     public SetLocalPlayer(player:Player) {
@@ -220,11 +245,99 @@ export default class GameManager extends ZepetoScriptBehaviour {
         }
     }
 
+
+
+    /** Camera **/
+    /* Camera Activator */
+    public MainCamera(active:boolean) {
+        const cam = ZepetoPlayers.instance.ZepetoCamera.camera;
+        cam.targetDisplay = active ? 0 : 1;
+    }
+
+    /* Change Camera Outdoor */
+    public ChangeCamOutdoor(isOutDoor:boolean, isTransition:boolean = false) {
+
+        /* Get Camera Data */
+        this.InitOffset();
+
+        /* In Door 1~3 */
+        /* OutDoor 3~8 [Default] */
+        this.isOutDoor = isOutDoor;
+        
+        /* Transition */
+        if(isTransition) {
+            if(this.isCamTransition) return;
+            if(this.CamTransition) this.StopCoroutine(this.CamTransition);
+            this.CamTransition = this.StartCoroutine(this.TransitionCamOutDoor());
+            return;
+        }
+
+        /* Default */
+        const cam = ZepetoPlayers.instance.cameraData;
+        const offset = isOutDoor ? this.cameraOffset_Outdoor : this.cameraOffset_Indoor;
+        cam.offset = offset.offset;
+        cam.maxZoomDistance = offset.maxZoomDistance;
+        cam.minZoomDistance = offset.minZoomDistance;
+    }
+
+    /* Camera Transition */
+    private * TransitionCamOutDoor() {
+        if(this.isCamTransition) return;
+        this.isCamTransition = true;
+
+        /* Get Camera Data */
+        const cam = ZepetoPlayers.instance.cameraData;
+
+        while(true) {
+            yield null;
+            
+            // Lerp
+            const targetOffset = this.isOutDoor ? this.cameraOffset_Outdoor : this.cameraOffset_Indoor;
+            cam.offset = Vector3.Lerp(cam.offset, targetOffset.offset, Time.deltaTime *2);
+            cam.maxZoomDistance = Mathf.Lerp(cam.maxZoomDistance, targetOffset.maxZoomDistance, Time.deltaTime *2);
+            cam.minZoomDistance = Mathf.Lerp(cam.minZoomDistance, targetOffset.minZoomDistance, Time.deltaTime *2);
+
+            // Distance
+            const point1 = Vector3.Distance(cam.offset, targetOffset.offset);
+            const point2 = Mathf.Abs(cam.maxZoomDistance - targetOffset.maxZoomDistance);
+            const point3 = Mathf.Abs(cam.minZoomDistance - targetOffset.minZoomDistance);
+            const line = 0.00001;
+
+            // Stop
+            if(point1 < line && point2 < line && point3 < line) {
+                cam.offset = targetOffset.offset;
+                cam.maxZoomDistance = targetOffset.maxZoomDistance;
+                cam.minZoomDistance = targetOffset.minZoomDistance;
+                break;
+            }
+        }
+        this.isCamTransition = false;
+    }
+
+    private InitOffset() {
+        if(this.cameraOffset_Indoor) return;
+        if(this.cameraOffset_Outdoor) return;
+
+        /* Set Init Data */
+        this.cameraOffset_Indoor = {
+            offset: Vector3.up * 0.2,
+            maxZoomDistance: 2,
+            minZoomDistance: -1,
+        }
+        this.cameraOffset_Outdoor = {
+            offset: Vector3.up * 0.5,
+            maxZoomDistance: 8,
+            minZoomDistance: 3,
+        }
+    }
+
+
+
     /** Local Player Animation **/
     /* Local Player State */
     public SetXXXState(xxxState:XXXState, isPlay:boolean) {
         const animator = ZepetoPlayers.instance.GetPlayer(this.room.SessionId).character.ZepetoAnimator;
-        const prevWonderState = animator.GetInteger(Anim.XXXState);
+        const prevXXXState = animator.GetInteger(Anim.XXXState);
 
         console.log(`${XXXState[xxxState]}, ${isPlay}`);
 
@@ -250,7 +363,7 @@ export default class GameManager extends ZepetoScriptBehaviour {
         this.room.Send(MESSAGE.Pose, data.GetObject());
     }
 
-    /* Get Local Player Wonder State */
+    /* Get Local Player XXX State */
     public get XXXState() {
         const animator = ZepetoPlayers.instance.GetPlayer(this.room.SessionId).character.ZepetoAnimator;
         const currentState = animator.GetInteger(Anim.XXXState);
@@ -263,26 +376,6 @@ export default class GameManager extends ZepetoScriptBehaviour {
         data.Add(SendName.Name, itemName);
         data.Add(SendName.Attach, bone);
         this.room.Send(MESSAGE.Unequip, data.GetObject());
-    }
-
-    /* Change Camera Outdoor */
-    public ChangeCamOutdoor(isOutdoor:boolean) {
-
-        /* In Door 1~4 */
-        /* OutDoor 3~8 [Default] */ 
-
-        /* Get Camera Data */
-        const cam = ZepetoPlayers.instance.ZepetoCamera;
-        if(isOutdoor) {
-            cam.additionalOffset = Vector3.zero;
-            cam.additionalMaxZoomDistance = 0;
-            cam.additionalMinZoomDistance = 0;
-
-        } else {
-            cam.additionalOffset = (cam.LookOffset *-1) + (Vector3.up *0.1);
-            cam.additionalMaxZoomDistance = -2;
-            cam.additionalMinZoomDistance = -4;
-        }
     }
 
     /* Show Text */

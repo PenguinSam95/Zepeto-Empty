@@ -1,0 +1,37 @@
+fileFormatVersion: 2
+guid: 36b38cf4f3fd7e14fa7434c8046db1f3
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nclass DeveloperBackDoor extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor() {\r\n        super(...arguments);\r\n       
+    this.useBackDoor = false;\r\n        // @SerializeField() private upButton: Button;\r\n       
+    this.useDetail = false;\r\n    }\r\n    // @SerializeField() private NONEstate_Button:
+    Button;\r\n    Start() {\r\n        // Admin\r\n        if (!this.useBackDoor)
+    {\r\n            return UnityEngine_1.GameObject.Destroy(this.gameObject);\r\n       
+    }\r\n        // this.upButton.onClick?.AddListener(() => {\r\n        // });\r\n       
+    // Developer\r\n        if (!this.useDetail) {\r\n            return UnityEngine_1.GameObject.Destroy(this.detailPanel);\r\n       
+    }\r\n        // this.NONEstate_Button.onClick?.AddListener(() => {\r\n       
+    // });\r\n    }\r\n}\r\nexports.default = DeveloperBackDoor;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiRGV2ZWxvcGVyQmFja0Rvb3IuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJEZXZlbG9wZXJCYWNrRG9vci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDZDQUF5QztBQUN6QyxpREFBcUQ7QUFFckQsTUFBcUIsaUJBQWtCLFNBQVEscUNBQXFCO0lBQXBFOztRQUk4QixnQkFBVyxHQUFZLEtBQUssQ0FBQztRQUN2RCw4Q0FBOEM7UUFHcEIsY0FBUyxHQUFZLEtBQUssQ0FBQztJQW9CekQsQ0FBQztJQWxCRyxzREFBc0Q7SUFHdEQsS0FBSztRQUNELFFBQVE7UUFDUixJQUFHLENBQUMsSUFBSSxDQUFDLFdBQVcsRUFBRTtZQUFFLE9BQU8sd0JBQVUsQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLFVBQVUsQ0FBQyxDQUFBO1NBQUU7UUFFcEUsNkNBQTZDO1FBQzdDLE1BQU07UUFHTixZQUFZO1FBQ1osSUFBRyxDQUFDLElBQUksQ0FBQyxTQUFTLEVBQUU7WUFBRSxPQUFPLHdCQUFVLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxXQUFXLENBQUMsQ0FBQTtTQUFFO1FBRW5FLHFEQUFxRDtRQUNyRCxNQUFNO0lBQ1YsQ0FBQztDQUVKO0FBNUJELG9DQTRCQyJ9","assetPath":"Assets/Zepeto
+    Multiplay Component/ZepetoScript/Managers/DeveloperBackDoor.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"useBackDoor","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"**
+    Developer **\""]},{"name":"Header","args":["\"Permission Admin\""]},{"name":"SerializeField","args":[]}]},{"assembly":"mscorlib","name":"useDetail","type":"System.Boolean","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"Permission
+    Developer\""]},{"name":"SerializeField","args":[]}]},{"assembly":"UnityEngine.CoreModule","name":"detailPanel","type":"UnityEngine.GameObject","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]}],"name":"DeveloperBackDoor","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 1b308b865689d28b4ed10cbdc149c6b7
+  onlyWriteTrigger: 0

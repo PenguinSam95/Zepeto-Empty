@@ -1,0 +1,41 @@
+fileFormatVersion: 2
+guid: 8d56ab6682bf091449f12c6f8bf2b87d
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nexports.LanguageType = void 0;\r\nconst UnityEngine_1 =
+    require(\"UnityEngine\");\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    GameManager_1 = require(\"../Managers/GameManager\");\r\nvar LanguageType;\r\n(function
+    (LanguageType) {\r\n    LanguageType[LanguageType[\"None\"] = -1] = \"None\";\r\n   
+    LanguageType[LanguageType[\"Kr\"] = 1] = \"Kr\";\r\n    LanguageType[LanguageType[\"En\"]
+    = 2] = \"En\";\r\n})(LanguageType = exports.LanguageType || (exports.LanguageType
+    = {}));\r\nclass TranslateManager extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\r\n    static get nowSystemLanguage() {\r\n        /* Backdoor */\r\n       
+    if (UnityEngine_1.Application.isEditor && GameManager_1.default.instance.editLanguage)\r\n           
+    return GameManager_1.default.instance.editLanguageType;\r\n        if (this.nowLanguage
+    == LanguageType.None) {\r\n            switch (UnityEngine_1.Application.systemLanguage)
+    {\r\n                case UnityEngine_1.SystemLanguage.Korean:\r\n                   
+    this.nowLanguage = LanguageType.Kr;\r\n                    break;\r\n               
+    default:\r\n                    this.nowLanguage = LanguageType.En;\r\n                   
+    break;\r\n            }\r\n        }\r\n        return this.nowLanguage;\r\n   
+    }\r\n}\r\nexports.default = TranslateManager;\r\nTranslateManager.nowLanguage
+    = LanguageType.None;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiVHJhbnNsYXRlTWFuYWdlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIlRyYW5zbGF0ZU1hbmFnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBQUEsNkNBQTBEO0FBQzFELGlEQUFxRDtBQUNyRCx5REFBa0Q7QUFHbEQsSUFBWSxZQUlYO0FBSkQsV0FBWSxZQUFZO0lBQ3BCLGdEQUFTLENBQUE7SUFDVCwyQ0FBTSxDQUFBO0lBQ04sMkNBQU0sQ0FBQTtBQUNWLENBQUMsRUFKVyxZQUFZLEdBQVosb0JBQVksS0FBWixvQkFBWSxRQUl2QjtBQUVELE1BQXFCLGdCQUFpQixTQUFRLHFDQUFxQjtJQUd4RCxNQUFNLEtBQUssaUJBQWlCO1FBQy9CLGNBQWM7UUFDZCxJQUFHLHlCQUFXLENBQUMsUUFBUSxJQUFJLHFCQUFXLENBQUMsUUFBUSxDQUFDLFlBQVk7WUFBRSxPQUFPLHFCQUFXLENBQUMsUUFBUSxDQUFDLGdCQUFnQixDQUFDO1FBRzNHLElBQUcsSUFBSSxDQUFDLFdBQVcsSUFBSSxZQUFZLENBQUMsSUFBSSxFQUFFO1lBQ3RDLFFBQU8seUJBQVcsQ0FBQyxjQUFjLEVBQUU7Z0JBRS9CLEtBQUssNEJBQWMsQ0FBQyxNQUFNO29CQUN0QixJQUFJLENBQUMsV0FBVyxHQUFHLFlBQVksQ0FBQyxFQUFFLENBQUM7b0JBQ25DLE1BQU07Z0JBRVY7b0JBQ0ksSUFBSSxDQUFDLFdBQVcsR0FBRyxZQUFZLENBQUMsRUFBRSxDQUFDO29CQUNuQyxNQUFNO2FBRWI7U0FDSjtRQUNELE9BQU8sSUFBSSxDQUFDLFdBQVcsQ0FBQztJQUM1QixDQUFDOztBQXRCTCxtQ0F3QkM7QUF0QmtCLDRCQUFXLEdBQWdCLFlBQVksQ0FBQyxJQUFJLENBQUMifQ==","assetPath":"Assets/Zepeto
+    Multiplay Component/ZepetoScript/Lang/TranslateManager.ts","manifest":{"properties":[],"name":"TranslateManager","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: eb81139639ee1f6ba381e3ca80c76c57
+  onlyWriteTrigger: 0

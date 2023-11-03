@@ -14,8 +14,9 @@ export default class PoseAnimationManager extends ZepetoScriptBehaviour {
     private set localSessionId(value: string) { this._localSessionId = value; }
     private poseDatas: PoseData[] = [];
 
+
     /* GameManager */
-    public RemoteStart(sessionId:string) {
+    public RemoteStart(sessionId: string) {
         this.localSessionId = sessionId;
 
         /* Init */

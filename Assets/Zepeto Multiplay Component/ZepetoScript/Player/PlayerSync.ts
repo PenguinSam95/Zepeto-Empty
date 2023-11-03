@@ -28,7 +28,7 @@ export default class PlayerSync extends ZepetoScriptBehaviour {
     private _multiplay: ZepetoWorldMultiplay;
     private _room: RoomBase;
 
-    /* Wonder Properties */
+    /* XXX Properties */
     private prevXXXState: number;
 
     private Start() {

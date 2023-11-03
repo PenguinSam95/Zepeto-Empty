@@ -247,7 +247,7 @@ export default class SyncComponentModule extends IModule {
         else this.ParseWorldData(client.sessionId, JSON_data);
 
         // Save Data
-        console.log(`[OnJoin] ${client.sessionId}'s Wonder World Data : ${JSON_data}`);
+        console.log(`[OnJoin] ${client.sessionId}'s World Data : ${JSON_data}`);
         await storage.set(StorageName.WorldData, JSON_data);
 
 
@@ -258,7 +258,7 @@ export default class SyncComponentModule extends IModule {
 
     async OnLeave(client: SandboxPlayer) {
 
-        /* Wonder World Data */
+        /* XXX World Data */
         const JSON_data = this.CompressWorldData(client.sessionId);
         console.log(`[OnLeave] ${StorageName.WorldData} saved... ${JSON_data}`);
         console.log(`[onLeave] ${client.sessionId}'s Player World Data : ${JSON_data}`)
@@ -277,7 +277,7 @@ export default class SyncComponentModule extends IModule {
     OnTick(deltaTime: number) {
     }
     
-    /** Wonder World Data **/
+    /** XXX World Data **/
     /* Push Data */
     private CompressWorldData(sessionId:string, isInit:boolean = false) {
         /* get player */
@@ -289,7 +289,7 @@ export default class SyncComponentModule extends IModule {
             player.visit = 1;
         }
         
-        const worldData:WorldData = {
+        const worldData: WorldData = {
             visitCount: player.visit,
         }
 
@@ -302,7 +302,7 @@ export default class SyncComponentModule extends IModule {
         const players = this.server.state.players;
         const player = players.get(sessionId);
 
-        const worldData:WorldData = JSON.parse(json_date) as WorldData;
+        const worldData: WorldData = JSON.parse(json_date) as WorldData;
         
         /* Set Player Data */
         player.visit = (worldData.visitCount as number) +1;
@@ -383,10 +383,12 @@ enum MESSAGE {
 }
 
 enum StorageName {
-    WorldData = "WonderWorldData_0.8.0",
+    WorldData = "WorldData_0.8.0",
 }
 
-/** Wonder **/
+/** XXX **/
 interface WorldData {
     visitCount: number,
+
+    /* XXX Data */
 }

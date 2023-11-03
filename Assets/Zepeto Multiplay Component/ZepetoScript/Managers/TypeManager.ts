@@ -1,5 +1,5 @@
 import { TextMeshProUGUI } from "TMPro";
-import { Animator, BoxCollider, Camera, Coroutine, GameObject, HumanBodyBones, ParticleSystem, Transform } from "UnityEngine";
+import { Animator, BoxCollider, Camera, Coroutine, GameObject, HumanBodyBones, ParticleSystem, Transform, Vector3 } from "UnityEngine";
 import { Image, Slider, Text } from "UnityEngine.UI";
 import LookAt from "../Sample Code/LookAt";
 import TransformSyncHelper from "../Transform/TransformSyncHelper";
@@ -94,6 +94,13 @@ export enum EffectType {
 /* Object Animation Sync */
 export interface SyncAnim {
     currentProgress:number;
+}
+
+/* Camera */
+export interface CameraOffset {
+    offset: Vector3,
+    maxZoomDistance: number,
+    minZoomDistance: number,
 }
 
 
@@ -226,6 +233,12 @@ export interface LookAtButton {
 
 export enum TriggerType {
     NONE = -1,
+    CameraChange_Inside = 100,
+    CameraChange_Outside = 101,
+    UIActivate_Once = 120,
+    UIActivate = 121,
+    ObjectActivate = 130,
+    ObjectDeactivate = 140,
 }
 
 /* LeaderBoard Datas */
