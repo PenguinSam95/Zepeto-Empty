@@ -113,11 +113,11 @@ export default class GameManager extends ZepetoScriptBehaviour {
         console.log(`[GameManager] DOTWeenSyncHelper connected`);
         
         /* Managers */
-        // const effectPanelManager = this._effectPanelManager.GetComponent<EffectPanelManager>();
+        // const effectPanelManager = this._effectPanelManager?.GetComponent<EffectPanelManager>();
         // if(effectPanelManager) this.effectPanelManager = effectPanelManager;
         // else this.effectPanelManager = GameObject.FindObjectOfType<EffectPanelManager>();
         // this._effectPanelManager = null;
-        // effectPanelManager.RemoteStart();
+        // this.effectPanelManager.RemoteStart();
         // console.log(`[GameManager] EffectPanelManager loaded success`);
     }
 
@@ -140,11 +140,11 @@ export default class GameManager extends ZepetoScriptBehaviour {
                     UIManager.instance.RemoteStart();
                     console.log(`[GameManager] UIManager loaded success`);
 
-                    const poseAnimationManager = this._poseAnimationManager.GetComponent<PoseAnimationManager>();
+                    const poseAnimationManager = this._poseAnimationManager?.GetComponent<PoseAnimationManager>();
                     if(poseAnimationManager) this.poseAnimationManager = poseAnimationManager;
                     else this.poseAnimationManager = GameObject.FindObjectOfType<PoseAnimationManager>();
                     this._poseAnimationManager = null;
-                    poseAnimationManager.RemoteStart(this.room.SessionId);
+                    this.poseAnimationManager.RemoteStart(this.room.SessionId);
                     console.log(`[GameManager] PoseAnimationManager loaded success`);
 
                     /* Stop Loading */
