@@ -212,6 +212,10 @@ export enum LAYER {
 
 export interface Callback {
     (): void;
+    (sessionId: string): boolean;
+}
+export interface CallbackPlayer<T1, T2 = void> {
+    (param: T1): T2;
 }
 
 
@@ -284,3 +288,29 @@ export enum ERROR {
 
     TRANSLATE_NOT_FOUND = "Please, Attached component of text type!",
 }
+
+
+
+/*** Format ***/
+declare global {
+    interface Number {
+        toMMSS(): string;
+    }
+}
+
+Number.prototype.toMMSS = function (): string {
+    const sec_num: number = this;
+    const hours: number = Math.floor(sec_num / 3600);
+    let minutes: number | string = Math.floor((sec_num - (hours * 3600)) / 60);
+    let seconds: number | string = Math.floor(sec_num - (hours * 3600) - (minutes * 60));
+
+    if (minutes < 10) {
+        minutes = `0${minutes}`;
+    }
+
+    if (seconds < 10) {
+        seconds = `0${seconds}`;
+    }
+
+    return `${minutes} : ${seconds}`;
+};
