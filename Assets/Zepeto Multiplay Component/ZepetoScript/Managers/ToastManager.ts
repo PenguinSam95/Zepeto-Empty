@@ -45,14 +45,20 @@ export default class ToastManager extends ZepetoScriptBehaviour {
         GameObject.Destroy(toastMessage, 1);
     }
 
-    public TextAnimate(text:string) {
+    public TextAnimate(text:string, tic:number = 1500) {
+        this.textAnimation.Stop();
         this.textAnimation.gameObject.SetActive(true);
         this.textAnimation_Text.text = text;
         this.textAnimation.Play();
+        
+        setTimeout(() => {
+            this.TextAnimationOFF();
+        }, tic);
     }
 
     public TextAnimationOFF() {
         this.textAnimation.gameObject.SetActive(false);
+        this.textAnimation.Stop();
     }
 
     public TextAnimate_OneSec(text:string) {
@@ -60,10 +66,15 @@ export default class ToastManager extends ZepetoScriptBehaviour {
         this.textAnimation_OneSec.gameObject.SetActive(true);
         this.textAnimation_OneSec_Text.text = text;
         this.textAnimation_OneSec.Play();
+        
+        setTimeout(() => {
+            this.TextAnimationOFF_OneSec();
+        }, 1000);
     }
 
     public TextAnimationOFF_OneSec() {
         this.textAnimation_OneSec.gameObject.SetActive(false);
+        this.textAnimation_OneSec.Stop();
     }
 
 }
