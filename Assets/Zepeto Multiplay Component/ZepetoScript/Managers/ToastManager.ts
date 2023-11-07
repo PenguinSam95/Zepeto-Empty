@@ -2,7 +2,7 @@ import { TextMeshProUGUI } from 'TMPro';
 import { Animation, Coroutine, GameObject, Transform, WaitForSeconds } from 'UnityEngine';
 import { Text } from 'UnityEngine.UI';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
-import { TOAST_MESSAGE } from '../Managers/TypeManager';
+import { Callback, TOAST_MESSAGE } from '../Managers/TypeManager';
 import GameManager from './GameManager';
 
 export default class ToastManager extends ZepetoScriptBehaviour {
@@ -45,7 +45,7 @@ export default class ToastManager extends ZepetoScriptBehaviour {
         GameObject.Destroy(toastMessage, 1);
     }
 
-    public TextAnimate(text:string, tic:number = 1500) {
+    public TextAnimate(text:string, tic:number = 1500, callback?: Callback) {
         this.textAnimation.Stop();
         this.textAnimation.gameObject.SetActive(true);
         this.textAnimation_Text.text = text;
@@ -53,6 +53,7 @@ export default class ToastManager extends ZepetoScriptBehaviour {
         
         setTimeout(() => {
             this.TextAnimationOFF();
+            if(callback != null) callback();
         }, tic);
     }
 
@@ -61,7 +62,7 @@ export default class ToastManager extends ZepetoScriptBehaviour {
         this.textAnimation.Stop();
     }
 
-    public TextAnimate_OneSec(text:string) {
+    public TextAnimate_OneSec(text:string, callback?: Callback) {
         this.textAnimation_OneSec.Stop();
         this.textAnimation_OneSec.gameObject.SetActive(true);
         this.textAnimation_OneSec_Text.text = text;
@@ -69,6 +70,7 @@ export default class ToastManager extends ZepetoScriptBehaviour {
         
         setTimeout(() => {
             this.TextAnimationOFF_OneSec();
+            if(callback != null) callback();
         }, 1000);
     }
 

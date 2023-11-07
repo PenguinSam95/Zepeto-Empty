@@ -11,7 +11,7 @@ import AnimatorSyncHelper from '../Transform/AnimatorSyncHelper';
 import TransformSyncHelper from '../Transform/TransformSyncHelper';
 import PoseAnimationManager from './PoseAnimationManager';
 import ToastManager from './ToastManager';
-import { Anim, ButtonType, CameraOffset, Datas, ERROR, LoadingType, MESSAGE, SendName, TOAST_MESSAGE, XXXState } from './TypeManager';
+import { Anim, ButtonType, Callback, CameraOffset, Datas, ERROR, LoadingType, MESSAGE, SendName, TOAST_MESSAGE, XXXState } from './TypeManager';
 import { LanguageType } from '../Lang/TranslateManager';
 import UIManager from './UIManager';
 
@@ -384,8 +384,8 @@ export default class GameManager extends ZepetoScriptBehaviour {
 
     /* Show Text */
     public Toast(text:string) { this.toastManager.Toast(text); }
-    public TextAnimate(text:string) { this.toastManager.TextAnimate(text); }
+    public TextAnimate(text:string, tic?:number, callback?:Callback) { this.toastManager.TextAnimate(text, tic, callback); }
     public TextAnimationOFF() { this.toastManager.TextAnimationOFF(); }
-    public TextAnimate_OneSec(text:string) { this.toastManager.TextAnimate_OneSec(text); }
+    public TextAnimate_OneSec(text:string, callback?:Callback) { this.toastManager.TextAnimate_OneSec(text, callback); }
     public TextAnimationOFF_OneSec() { this.toastManager.TextAnimationOFF_OneSec(); }
 }

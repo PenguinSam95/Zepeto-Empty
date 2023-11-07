@@ -210,6 +210,11 @@ export enum LAYER {
     Player = 21,
 }
 
+export interface Callback {
+    (): void;
+}
+
+
 export interface PoseData {
     isHasPoint: boolean,
     buttonName: string,
