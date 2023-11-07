@@ -23,9 +23,6 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
     @Header("SpawnOption")
     public readonly ZepetoPlayerSpawnType : ZepetoPlayerSpawnType = ZepetoPlayerSpawnType.MultiplayerSpawnOnJoinRoom;
 
-    @Header("Gravity")
-    public readonly PlayersGravity: float = 50;
-
     @Header("Position")
     public readonly UseHardSnap: boolean = true;
     @Tooltip("Force the position to be modified if it is farther than this number.") @SerializeField() private readonly HardSnapIfDistanceGreaterThan: number = 10;
@@ -69,8 +66,6 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
         const spawnObject = GameObject.FindWithTag(Tags.SpawnPoint);
         if(spawnObject) this.spawnPoint = spawnObject.transform;
         
-        ZepetoPlayers.instance.motionV2Data.Gravity = this.PlayersGravity;
-
         switch (+this.ZepetoPlayerSpawnType){
             case ZepetoPlayerSpawnType.NoneSpawn:
                 break;
