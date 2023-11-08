@@ -118,14 +118,16 @@ export default class UIManager extends ZepetoScriptBehaviour {
     /* UI Activate */
     public ActivateOpenUI(uiType: UIList) {
         const activator = this.GetUIActivator(uiType);
-        if(activator == null) return false; 
-        this.openUI = activator?.UIObject;
+        if(activator) {
+            this.openUI = activator.UIObject;
 
-        // LookAt Deactivate
-        for(const lookAt of this.UILookAts) {
-            this.LookAtActivator(lookAt, false);
+            // LookAt Activate
+            for(const lookAt of this.UILookAts) {
+                this.LookAtActivator(lookAt, false);
+            }
+            return true;
         }
-        return true;
+        return false; 
     }
     
     /* UI Deactivate */
@@ -135,6 +137,7 @@ export default class UIManager extends ZepetoScriptBehaviour {
             this.openUI.SetActive(false);
             this._openUI = null;
 
+            // LookAt Deactivate
             for(const lookAt of this.UILookAts) {
                 this.LookAtActivator(lookAt)
             }
@@ -149,6 +152,11 @@ export default class UIManager extends ZepetoScriptBehaviour {
         if(this.openUI && this.openUI == activator?.UIObject) {
             this.openUI.SetActive(false);
             this._openUI = null;
+
+            // LookAt Activate
+            for(const lookAt of this.UILookAts) {
+                this.LookAtActivator(lookAt, false);
+            }
             return true;
         }
         return false;
