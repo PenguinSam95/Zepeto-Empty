@@ -1,7 +1,7 @@
 import { Collider, GameObject, SpriteRenderer, Transform, WaitForFixedUpdate, WaitForSeconds } from 'UnityEngine';
 import { ZepetoPlayers } from 'ZEPETO.Character.Controller';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
-import { ButtonType } from '../Managers/TypeManager';
+import { ButtonType, UIList } from '../Managers/TypeManager';
 import UIManager from '../Managers/UIManager';
 import LookAtTrigger from './LookAtTrigger';
 import GameManager from '../Managers/GameManager';
@@ -18,10 +18,17 @@ export default class LookAt extends ZepetoScriptBehaviour {
     // private wait: WaitForFixedUpdate;
     
     /* public Properties */
+    @Header("Main properties")
     @SerializeField() private _buttonType: ButtonType = ButtonType.NULL;
     @SerializeField() private _scriptTarget: Transform;
     public get buttonType() { return this._buttonType; }
     public get scriptTarget() { return this._scriptTarget; }
+
+
+    @Header("UI properties")
+    @SerializeField() private _uiType: UIList = UIList.NONE;
+    public get uiType() { return this._uiType }
+
 
     Start() {
         this.renderer = this.GetComponent<SpriteRenderer>();
@@ -31,13 +38,16 @@ export default class LookAt extends ZepetoScriptBehaviour {
         if(this.collider) this.collider.enabled = false;
 
         this.trigger = this.transform.parent.GetChild(1).GetComponent<LookAtTrigger>();
+
+
+        /* UI Activator */
+        this.SetThisUIType();
     }
 
     /* UI Active */
     public UIActivate() {
         if(UIManager.instance.openUI) return;
-        UIManager.instance.openUI = this.scriptTarget.gameObject;
-        this.transform.parent.gameObject.SetActive(false);
+        UIManager.instance.ActivateOpenUI(this.uiType);
     }
 
     public StartLooking(col : Collider) {
@@ -93,6 +103,17 @@ export default class LookAt extends ZepetoScriptBehaviour {
         while(this.isLooking) {
             yield wait;
             this.transform.LookAt(playerCam.position);
+        }
+    }
+
+
+
+
+
+    /* UI Activator */
+    public SetThisUIType() {
+        if(this.uiType > 0) {
+            UIManager.instance.UILookAt = this;
         }
     }
 }

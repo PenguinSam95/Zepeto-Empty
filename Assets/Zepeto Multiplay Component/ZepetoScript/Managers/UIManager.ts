@@ -7,7 +7,8 @@ import { ZepetoWorldMultiplay } from 'ZEPETO.World';
 import SyncIndexManager from '../Common/SyncIndexManager';
 import LookAt from '../Sample Code/LookAt';
 import GameManager from './GameManager';
-import { ERROR, LoadingType, MESSAGE } from './TypeManager';
+import { ERROR, LoadingType, MESSAGE, UIList } from './TypeManager';
+import UIActivator from '../UI/UIActivator';
 
 export default class UIManager extends ZepetoScriptBehaviour {
 
@@ -23,6 +24,7 @@ export default class UIManager extends ZepetoScriptBehaviour {
         return this._instance;
     }
 
+
     /* UIManagers Default Properties */
     @Header("UI Manager Field")
     @SerializeField() public canvas: GameObject;
@@ -34,11 +36,19 @@ export default class UIManager extends ZepetoScriptBehaviour {
     public get openUI(): GameObject { return this._openUI; }
     public set openUI(value: GameObject) {
         if(!this._openUI) {
-            this.onChangeOpenUI(value);
+            this._openUI = value;
+            this._openUI.SetActive(true);
         } else {
             console.error(ERROR.ALREADY_OPENED);
         }
     }
+
+
+    /* UI Activator Automatic */
+    @Header("UI Activators")
+    private UILists: UIActivator[] = [];
+    private UILookAts: LookAt[] = [];
+
 
     @Header("All range")
     @SerializeField() private buttonPanel: Transform;
@@ -70,55 +80,80 @@ export default class UIManager extends ZepetoScriptBehaviour {
 
 
 
+
+
+
+
+
+
+
     /**** Activities ****/
-    /* Check Opened UI */
-    public DeactiveOpenUI(ui:GameObject) {
-        if(this.openUI) this.openUI.SetActive(false);
-        if(ui) ui.SetActive(false);
-        if(this.openUI == ui) {
+    /** UI Activator **/
+    public set UIList(value:UIActivator) {
+        for(const item of this.UILists) { if(item == value) return; }
+        this.UILists.push(value);
+    }
+    public set UILookAt(value:LookAt) { this.UILookAts.push(value); }
+    private GetUIActivator(uiType: UIList) : UIActivator {
+        for(const item of this.UILists) {
+            if(item.uiType == uiType) return item;
+        }
+        return null;
+    }
+    private GetUILookAts(uiType: UIList) : LookAt[] {
+        const items = [];
+        for(const item of this.UILookAts) {
+            if(item.uiType == uiType) items.push(item);
+        }
+        return items;
+    }
+
+    /* LookAt Script Activator */
+    private LookAtActivator(lookAt:LookAt, active:boolean = true) {
+        const buttonObject = lookAt.transform.parent.gameObject;
+        buttonObject.SetActive(active);
+        active ? lookAt.RemoteStartLooking() : lookAt.RemoteStopLooking();
+    }
+
+    /* UI Activate */
+    public ActivateOpenUI(uiType: UIList) {
+        const activator = this.GetUIActivator(uiType);
+        if(activator == null) return false; 
+        this.openUI = activator?.UIObject;
+
+        // LookAt Deactivate
+        for(const lookAt of this.UILookAts) {
+            this.LookAtActivator(lookAt, false);
+        }
+        return true;
+    }
+    
+    /* UI Deactivate */
+    public DeactiveOpenUI(uiType: UIList) {
+        const activator = this.GetUIActivator(uiType);
+        if(this.openUI && this.openUI == activator?.UIObject) {
+            this.openUI.SetActive(false);
+            this._openUI = null;
+
+            for(const lookAt of this.UILookAts) {
+                this.LookAtActivator(lookAt)
+            }
+            return true;
+        }
+        return false;
+    } 
+
+    /* Forced UI Deactivate */
+    public ForcedDeactiveOpenUI(uiType: UIList) {
+        const activator = this.GetUIActivator(uiType);
+        if(this.openUI && this.openUI == activator?.UIObject) {
+            this.openUI.SetActive(false);
             this._openUI = null;
             return true;
         }
         return false;
     } 
 
-    /* Check Opened UI */
-    public DeactiveOpenUI_Target(ui:GameObject) {
-        if(this.openUI && this.openUI == ui) {
-            ui.SetActive(false);
-            this._openUI = null;
-            return true;
-        }
-        return false;
-    } 
-    
-    /* Check Opened UI and ButtonObject Reset */
-    public DeactiveOpenUI_Buttons(ui:GameObject, ...buttons:LookAt[]) {
-        const result = this.DeactiveOpenUI(ui);
-        if(result) {
-            for(const button of buttons) {
-                const buttonObject = button.transform.parent.gameObject;
-                buttonObject.SetActive(true);
-                button.RemoteStartLooking();
-            }
-            return true;
-        }
-        return false;
-    }
-    
-    /* Check Opened UI and ButtonObject Reset */
-    public DeactiveOpenUI_ButtonArray(ui:GameObject, buttons:LookAt[]) {
-        const result = this.DeactiveOpenUI(ui);
-        if(result) {
-            for(const button of buttons) {
-                const buttonObject = button.transform.parent.gameObject;
-                buttonObject.SetActive(true);
-                button.RemoteStartLooking();
-            }
-            return true;
-        }
-        return false;
-    }
 
     /* Main Button Panel */
     public MainButtonPanelVisibler(isVisible:boolean) {
@@ -128,12 +163,12 @@ export default class UIManager extends ZepetoScriptBehaviour {
     public ScreenShotModuleVisibler(isVisible:boolean) {
         this.screenShotModule.SetActive(isVisible);
     }
-    
-    private onChangeOpenUI(openUI:GameObject) {
-        this._openUI = openUI;
-        this._openUI.SetActive(true);
-    }
-    
+
+
+
+
+
+
 
     /** Supporter **/
     /* Get Loading Image Object */ 
