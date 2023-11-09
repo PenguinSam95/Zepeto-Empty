@@ -1,5 +1,5 @@
 import { TextMeshProUGUI } from "TMPro";
-import { Animator, BoxCollider, Camera, Coroutine, GameObject, HumanBodyBones, ParticleSystem, Transform, Vector3 } from "UnityEngine";
+import { Animator, BoxCollider, Camera, Coroutine, GameObject, HumanBodyBones, Mathf, ParticleSystem, Transform, Vector3 } from "UnityEngine";
 import { Image, Slider, Text } from "UnityEngine.UI";
 import LookAt from "../Sample Code/LookAt";
 import TransformSyncHelper from "../Transform/TransformSyncHelper";
@@ -220,7 +220,6 @@ export enum LAYER {
 
 export interface Callback {
     (): void;
-    (sessionId: string): boolean;
 }
 export interface CallbackPlayer<T1, T2 = void> {
     (param: T1): T2;
@@ -303,6 +302,8 @@ export enum ERROR {
 declare global {
     interface Number {
         toMMSS(): string;
+        toCount(): string;
+        toPercent(min:number, max:number): number;
     }
 }
 
@@ -321,4 +322,17 @@ Number.prototype.toMMSS = function (): string {
     }
 
     return `${minutes} : ${seconds}`;
+};
+
+Number.prototype.toCount = function (): string {
+    const money: number = this;
+    return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+Number.prototype.toPercent = function (min:number, max:number): number {
+    const target: number = this;
+    const size = (max - min) > 0 ? max - min : min - max;
+    const num_inSize = target - min;
+    const percent = (num_inSize / size) * 100;
+    return Mathf.Clamp(percent, 6, 100);
 };

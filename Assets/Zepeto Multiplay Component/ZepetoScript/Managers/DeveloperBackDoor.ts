@@ -1,4 +1,5 @@
 import { GameObject } from 'UnityEngine';
+import { Button } from 'UnityEngine.UI';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
 
 export default class DeveloperBackDoor extends ZepetoScriptBehaviour {
@@ -6,7 +7,7 @@ export default class DeveloperBackDoor extends ZepetoScriptBehaviour {
     @Header("** Developer **")
     @Header("Permission Admin")
     @SerializeField() private useBackDoor: boolean = false;
-    // @SerializeField() private upButton: Button;
+    @SerializeField() private testButton: Button;
     
     @Header("Permission Developer")
     @SerializeField() private useDetail: boolean = false;
@@ -18,8 +19,14 @@ export default class DeveloperBackDoor extends ZepetoScriptBehaviour {
         // Admin
         if(!this.useBackDoor) { return GameObject.Destroy(this.gameObject) }
         
-        // this.upButton.onClick?.AddListener(() => {
-        // });
+        this.testButton.onClick?.AddListener(() => {
+            //
+            const num = 50000000;
+            console.log(`num.toCount() ${num.toCount()} $`);
+            
+            const num2 = 50;
+            console.log(`num2.toPercent(10, 110) ${num2.toPercent(10, 110)} %`);
+        });
 
 
         // Developer
