@@ -318,15 +318,14 @@ export default class GameManager extends ZepetoScriptBehaviour {
         if(this.cameraOffset_Indoor) return;
         if(this.cameraOffset_Outdoor) return;
 
-        const inOffset = Vector3.up;
+        const inOffset = Vector3.zero;
         const outOffset = Vector3.up;
-        inOffset.y = 0.2;
         outOffset.y = 0.5;
         /* Set Init Data */
         this.cameraOffset_Indoor = {
             offset: inOffset,
             maxZoomDistance: 2,
-            minZoomDistance: 1,
+            minZoomDistance: 0.3,
         }
         this.cameraOffset_Outdoor = {
             offset: outOffset,
