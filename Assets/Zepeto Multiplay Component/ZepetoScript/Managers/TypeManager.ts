@@ -115,7 +115,7 @@ export enum LoadingType {
 
 export enum UIList {
     NONE = -1,
-    Sample = 0,
+    Sample = 1,
     Dummy = 10,
 }
 

@@ -2,7 +2,7 @@ import { Collider, Transform } from 'UnityEngine';
 import { ZepetoPlayers } from 'ZEPETO.Character.Controller';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
 import GameManager from '../Managers/GameManager';
-import { ERROR, Tags, TriggerType } from '../Managers/TypeManager';
+import { ERROR, Tags, TriggerType, UIList } from '../Managers/TypeManager';
 import UIManager from '../Managers/UIManager';
 
 export default class TriggerController extends ZepetoScriptBehaviour {
@@ -13,6 +13,11 @@ export default class TriggerController extends ZepetoScriptBehaviour {
     public get triggerType() { return this._triggerType; }
     public get scriptTarget() { return this._scriptTarget; }
     private isUIActivate_Once: boolean = false;
+
+
+    @Header("UI properties")
+    @SerializeField() private _uiType: UIList = UIList.NONE;
+    public get uiType() { return this._uiType }
 
 
     /* Touch Collider */
@@ -84,12 +89,12 @@ export default class TriggerController extends ZepetoScriptBehaviour {
     /* UI Active */
     private UIActivate() {
         if(UIManager.instance.openUI) return false;
-        UIManager.instance.openUI = this.scriptTarget.gameObject;
+        UIManager.instance.ActivateOpenUI(this.uiType);
         return true;
         
     }
     
     private UIDeactivate() {
-        UIManager.instance.DeactiveOpenUI_Target(this.scriptTarget.gameObject);
+        UIManager.instance.DeactiveOpenUI(this.uiType);
     }
 }
