@@ -93,7 +93,7 @@ export default class GameManager extends ZepetoScriptBehaviour {
         
         /* Remote Start */
         this.toastManager = this.transform.GetComponentInChildren<ToastManager>();
-        this.toastManager.RemoteStart();
+        this.toastManager?.RemoteStart();
 
 
         this.transformSyncs = GameObject.FindObjectsOfType<TransformSyncHelper>();
@@ -382,9 +382,12 @@ export default class GameManager extends ZepetoScriptBehaviour {
     }
 
     /* Show Text */
-    public Toast(text:string) { this.toastManager.Toast(text); }
-    public TextAnimate(text:string, tic?:number, callback?:Callback) { this.toastManager.TextAnimate(text, tic, callback); }
-    public TextAnimationOFF() { this.toastManager.TextAnimationOFF(); }
-    public TextAnimate_OneSec(text:string, callback?:Callback) { this.toastManager.TextAnimate_OneSec(text, callback); }
-    public TextAnimationOFF_OneSec() { this.toastManager.TextAnimationOFF_OneSec(); }
+    public Toast(text:string) { this.toastManager?.Toast(text); }
+    public TextAnimate(text:string, tic?:number, callback?:Callback) { this.toastManager?.TextAnimate(text, tic, callback); }
+    public TextAnimationOFF() { this.toastManager?.TextAnimationOFF(); }
+    public TextAnimate_OneSec(text:string, callback?:Callback) { this.toastManager?.TextAnimate_OneSec(text, callback); }
+    public TextAnimationOFF_OneSec() { this.toastManager?.TextAnimationOFF_OneSec(); }
+
+    public EffectAnimation() { this.toastManager?.EffectAnimation(); }
+    public EffectAnimationOFF() { this.toastManager?.EffectAnimationOFF(); }
 }
