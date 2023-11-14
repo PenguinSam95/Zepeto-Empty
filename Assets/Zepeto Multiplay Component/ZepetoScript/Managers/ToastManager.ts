@@ -23,8 +23,10 @@ export default class ToastManager extends ZepetoScriptBehaviour {
     private textAnimation_OneSec_Text: TextMeshProUGUI;
 
     /* GameManager */
-    public RemoteStart() {
+    public RemoteStart(callback?: Callback) {
         this.InstantiateItems();
+
+        if(callback != null) callback();
     }
 
     private InstantiateItems() {

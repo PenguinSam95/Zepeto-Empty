@@ -93,7 +93,9 @@ export default class GameManager extends ZepetoScriptBehaviour {
         
         /* Remote Start */
         this.toastManager = this.transform.GetComponentInChildren<ToastManager>();
-        this.toastManager?.RemoteStart();
+        this.toastManager?.RemoteStart(() => {
+            console.log(`[GameManager] ToastManager loaded success`);
+        });
 
 
         this.transformSyncs = GameObject.FindObjectsOfType<TransformSyncHelper>();
@@ -117,8 +119,9 @@ export default class GameManager extends ZepetoScriptBehaviour {
         // if(effectPanelManager) this.effectPanelManager = effectPanelManager;
         // else this.effectPanelManager = GameObject.FindObjectOfType<EffectPanelManager>();
         // this._effectPanelManager = null;
-        // this.effectPanelManager.RemoteStart();
-        // console.log(`[GameManager] EffectPanelManager loaded success`);
+        // this.effectPanelManager?.RemoteStart(() => {
+        //     console.log(`[GameManager] EffectPanelManager loaded success`);
+        // });
     }
 
     /* Start Loading */
@@ -137,15 +140,17 @@ export default class GameManager extends ZepetoScriptBehaviour {
                 if (ZepetoPlayers.instance.HasPlayer(this.room.SessionId)) {
                     
                     /* Remote Start */
-                    UIManager.instance.RemoteStart();
-                    console.log(`[GameManager] UIManager loaded success`);
+                    UIManager.instance.RemoteStart(() => {
+                        console.log(`[GameManager] UIManager loaded success`);
+                    });
 
                     const poseAnimationManager = this._poseAnimationManager?.GetComponent<PoseAnimationManager>();
                     if(poseAnimationManager) this.poseAnimationManager = poseAnimationManager;
                     else this.poseAnimationManager = GameObject.FindObjectOfType<PoseAnimationManager>();
                     this._poseAnimationManager = null;
-                    this.poseAnimationManager.RemoteStart(this.room.SessionId);
-                    console.log(`[GameManager] PoseAnimationManager loaded success`);
+                    this.poseAnimationManager?.RemoteStart(this.room.SessionId, () => {
+                        console.log(`[GameManager] PoseAnimationManager loaded success`);
+                    });
 
                     /* Stop Loading */
                     isLoading = false;

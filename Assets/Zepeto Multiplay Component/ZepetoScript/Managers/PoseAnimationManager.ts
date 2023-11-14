@@ -3,7 +3,7 @@ import { ZepetoPlayers } from 'ZEPETO.Character.Controller';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
 import LookAt from '../Sample Code/LookAt';
 import GameManager from './GameManager';
-import { ButtonType, ERROR, PoseData, XXXState } from './TypeManager';
+import { ButtonType, Callback, ERROR, PoseData, XXXState } from './TypeManager';
 import UIManager from './UIManager';
 
 export default class PoseAnimationManager extends ZepetoScriptBehaviour {
@@ -16,11 +16,12 @@ export default class PoseAnimationManager extends ZepetoScriptBehaviour {
 
 
     /* GameManager */
-    public RemoteStart(sessionId: string) {
+    public RemoteStart(sessionId: string, callback?: Callback) {
         this.localSessionId = sessionId;
 
         /* Init */
         this.SetInitPoseZone();
+        if(callback != null) callback();
     }
 
     /* Init Pose Zone */
@@ -85,7 +86,7 @@ export default class PoseAnimationManager extends ZepetoScriptBehaviour {
     }
 
     /* Player Move Check */
-    private * OnMoveChecker(buttonName:string, buttonType:ButtonType = 0) {
+    private * OnMoveChecker(buttonName:string, buttonType:ButtonType = ButtonType.NULL) {
         UIManager.instance.MainButtonPanelVisibler(false);
         const character = ZepetoPlayers.instance.GetPlayer(this.localSessionId).character;
         while(true) {

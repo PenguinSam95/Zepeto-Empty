@@ -7,7 +7,7 @@ import { ZepetoWorldMultiplay } from 'ZEPETO.World';
 import SyncIndexManager from '../Common/SyncIndexManager';
 import LookAt from '../Sample Code/LookAt';
 import GameManager from './GameManager';
-import { ERROR, LoadingType, MESSAGE, UIList } from './TypeManager';
+import { Callback, ERROR, LoadingType, MESSAGE, UIList } from './TypeManager';
 import UIActivator from '../UI/UIActivator';
 
 export default class UIManager extends ZepetoScriptBehaviour {
@@ -74,7 +74,10 @@ export default class UIManager extends ZepetoScriptBehaviour {
     }
 
     /* GameManager */
-    public RemoteStart() {
+    public RemoteStart(callback?: Callback) {
+
+        
+        if(callback != null) callback();
     }
 
 
