@@ -113,12 +113,15 @@ MonoBehaviour:
     keys:
     - _triggerType
     - _scriptTarget
+    - _uiType
     unityValues:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     values:
     - '{"type":"System.String, mscorlib","value":"-1"}'
     - 
+    - '{"type":"System.String, mscorlib","value":"-1"}'
     unityArrayValues: []
     arrayValues: []
     script: {fileID: 4458252877524076426, guid: af61e9de60fc2634e9ada8611c86af5c, type: 3}
