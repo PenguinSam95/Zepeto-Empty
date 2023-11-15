@@ -14,7 +14,7 @@ export default class UIActivator extends ZepetoScriptBehaviour {
     @SerializeField() private closeButton: Button;
     @SerializeField() private yButton: Button;
     @SerializeField() private nButton: Button;
-    @SerializeField() private _uiType: UIList = UIList.NONE;
+    @SerializeField() private readonly _uiType: UIList = UIList.NONE;
     public get uiType() { return this._uiType }
 
     /* Set Properties */

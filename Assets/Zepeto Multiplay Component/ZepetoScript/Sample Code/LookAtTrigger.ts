@@ -1,34 +1,29 @@
 import { Collider, GameObject, SphereCollider, Vector3 } from 'UnityEngine';
 import { ZepetoPlayers } from 'ZEPETO.Character.Controller';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
-import { ERROR } from '../Managers/TypeManager';
+import { Callback, ERROR } from '../Managers/TypeManager';
 import LookAt from './LookAt';
 
 export default class LookAtTrigger extends ZepetoScriptBehaviour {
 
     /* Default Properties */
-    private lookAt : LookAt;
+    private lookAt: LookAt;
     private col: SphereCollider;
 
     Start() {
         this.lookAt = this.transform.parent.GetComponentInChildren<LookAt>();
-        this.col = this.gameObject.GetComponent<SphereCollider>();
+        this.col = this.transform.GetComponent<SphereCollider>();
     }
 
-    OnTriggerEnter(collider : Collider) {
+    /* Trigger */
+    OnTriggerEnter(collider: Collider) { this.OnTrigger(collider, () => { this.lookAt.StartLooking(collider); }); }
+    OnTriggerExit(collider: Collider) { this.OnTrigger(collider, () => { this.lookAt.StopLooking(collider); }); }
+    private OnTrigger(collider: Collider, callback?: Callback) {
         if(!ZepetoPlayers.instance.LocalPlayer) return console.warn(ERROR.NOT_FOUND_LOCAL_PLAYER);
         const character = ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.gameObject;
         if(collider.gameObject != character) return;
-    
-        this.lookAt.StartLooking(collider);
-    }
-    
-    OnTriggerExit(collider : Collider) {
-        if(!ZepetoPlayers.instance.LocalPlayer) return console.warn(ERROR.NOT_FOUND_LOCAL_PLAYER);
-        const character = ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.gameObject;
-        if(collider.gameObject != character) return;
-        
-        this.lookAt.StopLooking(collider);
+
+        if(callback != null) callback();
     }
 
     /* Player is In Trigger? */

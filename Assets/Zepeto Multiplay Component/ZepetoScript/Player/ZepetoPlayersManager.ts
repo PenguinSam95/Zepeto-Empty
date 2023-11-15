@@ -225,7 +225,7 @@ export default class ZepetoPlayersManager extends ZepetoScriptBehaviour {
         this.currentPlayers.forEach((player:Player)=> {
             const isLocal = this._room.SessionId === player.sessionId;
             if(!ZepetoPlayers.instance.HasPlayer(player.sessionId)) {
-                console.log(`Spawn ${player.sessionId}`);
+                console.log(`[ZepetoPlayersManager] ${player.sessionId} Spawned`);
                 ZepetoPlayers.instance.CreatePlayerWithUserId(player.sessionId, player.zepetoUserId, spawnInfo, isLocal);
             }
         });

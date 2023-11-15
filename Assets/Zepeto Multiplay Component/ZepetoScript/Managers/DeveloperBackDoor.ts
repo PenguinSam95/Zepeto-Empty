@@ -29,8 +29,7 @@ export default class DeveloperBackDoor extends ZepetoScriptBehaviour {
             const num2 = 50;
             console.log(`num2.toPercent(10, 110) ${num2.toPercent(10, 110)} %`);
             
-            GameManager.instance.TextAnimate(Datas.CLEAR, 2000, () => {
-            });
+            GameManager.instance.TextAnimate(Datas.CLEAR, 2000, () => {});
 
             setTimeout(() => {
                 GameManager.instance.EffectAnimation();

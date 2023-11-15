@@ -24,22 +24,22 @@ ScriptedImporter:
     = require(\"ZEPETO.Character.Controller\");\r\nconst TypeManager_1 = require(\"../Managers/TypeManager\");\r\nclass
     AdditionalSpeed extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor()
     {\r\n        //Script that increases the speed when the Zepeto character steps
-    on the trigger.\r\n        super(...arguments);\r\n        this.additionalRunSpeed
-    = 10;\r\n        this.additionalWalkSpeed = 10;\r\n        this.additionalJumpPower
-    = 10;\r\n    }\r\n    OnTriggerEnter(collider) {\r\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\r\n           
-    return console.error(TypeManager_1.ERROR.NOT_FOUND_LOCAL_PLAYER);\r\n       
-    const character = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\r\n       
+    on the trigger.\r\n        super(...arguments);\r\n        /* Properties */\r\n       
+    this.additionalRunSpeed = 10;\r\n        this.additionalWalkSpeed = 10;\r\n       
+    this.additionalJumpPower = 10;\r\n    }\r\n    OnTriggerEnter(collider) {\r\n       
+    this.onTrigger(collider, (character) => {\r\n            character.additionalRunSpeed
+    = this.additionalRunSpeed;\r\n            character.additionalWalkSpeed = this.additionalWalkSpeed;\r\n           
+    character.additionalJumpPower = this.additionalJumpPower;\r\n            return
+    true;\r\n        });\r\n    }\r\n    OnTriggerExit(collider) {\r\n        this.onTrigger(collider,
+    (character) => {\r\n            character.additionalRunSpeed = 0;\r\n           
+    character.additionalWalkSpeed = 0;\r\n            character.additionalJumpPower
+    = 0;\r\n            return true;\r\n        });\r\n    }\r\n    onTrigger(collider,
+    callback) {\r\n        if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\r\n           
+    return console.warn(TypeManager_1.ERROR.NOT_FOUND_LOCAL_PLAYER);\r\n        const
+    character = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\r\n       
     if (UnityEngine_1.Object.op_Inequality(collider.gameObject, character.gameObject))\r\n           
-    return;\r\n        character.additionalRunSpeed = this.additionalRunSpeed;\r\n       
-    character.additionalWalkSpeed = this.additionalWalkSpeed;\r\n        character.additionalJumpPower
-    = this.additionalJumpPower;\r\n    }\r\n    OnTriggerExit(collider) {\r\n       
-    if (!ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer)\r\n           
-    return console.error(TypeManager_1.ERROR.NOT_FOUND_LOCAL_PLAYER);\r\n       
-    const character = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character;\r\n       
-    if (UnityEngine_1.Object.op_Inequality(collider.gameObject, character.gameObject))\r\n           
-    return;\r\n        character.additionalRunSpeed = 0;\r\n        character.additionalWalkSpeed
-    = 0;\r\n        character.additionalJumpPower = 0;\r\n    }\r\n}\r\nexports.default
-    = AdditionalSpeed;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQWRkaXRpb25hbFNwZWVkLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiQWRkaXRpb25hbFNwZWVkLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaURBQXFEO0FBQ3JELDZDQUE0QztBQUM1Qyw2RUFBNkU7QUFDN0UseURBQWdEO0FBRWhELE1BQXFCLGVBQWdCLFNBQVEscUNBQXFCO0lBQWxFO1FBQ0ksaUZBQWlGOztRQUV2RCx1QkFBa0IsR0FBVSxFQUFFLENBQUM7UUFDL0Isd0JBQW1CLEdBQVUsRUFBRSxDQUFDO1FBQ2hDLHdCQUFtQixHQUFVLEVBQUUsQ0FBQztJQXFCOUQsQ0FBQztJQW5CVyxjQUFjLENBQUMsUUFBa0I7UUFDckMsSUFBRyxDQUFDLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVc7WUFBRSxPQUFPLE9BQU8sQ0FBQyxLQUFLLENBQUMsbUJBQUssQ0FBQyxzQkFBc0IsQ0FBQyxDQUFDO1FBQzNGLE1BQU0sU0FBUyxHQUFHLDJDQUFhLENBQUMsUUFBUSxDQUFDLFdBQVcsQ0FBQyxZQUFZLENBQUMsU0FBUyxDQUFDO1FBQzVFLElBZFUsb0JBQU0sQ0E4QmttVCxhQUFjLENBaEI3blQsUUFBUSxDQUFDLFVBQVUsRUFBSSxTQUFTLENBQUMsVUFBVTtZQUFFLE9BQU87UUFFdkQsU0FBUyxDQUFDLGtCQUFrQixHQUFHLElBQUksQ0FBQyxrQkFBa0IsQ0FBQztRQUN2RCxTQUFTLENBQUMsbUJBQW1CLEdBQUcsSUFBSSxDQUFDLG1CQUFtQixDQUFDO1FBQ3pELFNBQVMsQ0FBQyxtQkFBbUIsR0FBRyxJQUFJLENBQUMsbUJBQW1CLENBQUM7SUFDN0QsQ0FBQztJQUVPLGFBQWEsQ0FBQyxRQUFrQjtRQUNwQyxJQUFHLENBQUMsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVztZQUFFLE9BQU8sT0FBTyxDQUFDLEtBQUssQ0FBQyxtQkFBSyxDQUFDLHNCQUFzQixDQUFDLENBQUM7UUFDM0YsTUFBTSxTQUFTLEdBQUcsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUM7UUFDNUUsSUF4QlUsb0JBQU0sQ0E4QmttVCxhQUFjLENBTjduVCxRQUFRLENBQUMsVUFBVSxFQUFJLFNBQVMsQ0FBQyxVQUFVO1lBQUUsT0FBTztRQUV2RCxTQUFTLENBQUMsa0JBQWtCLEdBQUcsQ0FBQyxDQUFDO1FBQ2pDLFNBQVMsQ0FBQyxtQkFBbUIsR0FBRyxDQUFDLENBQUM7UUFDbEMsU0FBUyxDQUFDLG1CQUFtQixHQUFHLENBQUMsQ0FBQztJQUN0QyxDQUFDO0NBQ0o7QUExQkQsa0NBMEJDIn0=","assetPath":"Assets/Zepeto
+    return;\r\n        if (callback != null)\r\n            callback(character);\r\n   
+    }\r\n}\r\nexports.default = AdditionalSpeed;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQWRkaXRpb25hbFNwZWVkLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiQWRkaXRpb25hbFNwZWVkLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaURBQXFEO0FBQ3JELDZDQUE0QztBQUM1Qyw2RUFBNkU7QUFDN0UseURBQWdFO0FBRWhFLE1BQXFCLGVBQWdCLFNBQVEscUNBQXFCO0lBQWxFO1FBQ0ksaUZBQWlGOztRQUVqRixnQkFBZ0I7UUFDVSx1QkFBa0IsR0FBVSxFQUFFLENBQUM7UUFDL0Isd0JBQW1CLEdBQVUsRUFBRSxDQUFDO1FBQ2hDLHdCQUFtQixHQUFVLEVBQUUsQ0FBQztJQTJCOUQsQ0FBQztJQXpCRyxjQUFjLENBQUMsUUFBa0I7UUFDN0IsSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLEVBQUUsQ0FBQyxTQUFTLEVBQUUsRUFBRTtZQUNuQyxTQUFTLENBQUMsa0JBQWtCLEdBQUcsSUFBSSxDQUFDLGtCQUFrQixDQUFDO1lBQ3ZELFNBQVMsQ0FBQyxtQkFBbUIsR0FBRyxJQUFJLENBQUMsbUJBQW1CLENBQUM7WUFDekQsU0FBUyxDQUFDLG1CQUFtQixHQUFHLElBQUksQ0FBQyxtQkFBbUIsQ0FBQztZQUN6RCxPQUFPLElBQUksQ0FBQztRQUNoQixDQUFDLENBQUMsQ0FBQTtJQUNOLENBQUM7SUFFRCxhQUFhLENBQUMsUUFBa0I7UUFDNUIsSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLEVBQUUsQ0FBQyxTQUFTLEVBQUUsRUFBRTtZQUNuQyxTQUFTLENBQUMsa0JBQWtCLEdBQUcsQ0FBQyxDQUFDO1lBQ2pDLFNBQVMsQ0FBQyxtQkFBbUIsR0FBRyxDQUFDLENBQUM7WUFDbEMsU0FBUyxDQUFDLG1CQUFtQixHQUFHLENBQUMsQ0FBQztZQUNsQyxPQUFPLElBQUksQ0FBQztRQUNoQixDQUFDLENBQUMsQ0FBQTtJQUNOLENBQUM7SUFFTyxTQUFTLENBQUMsUUFBa0IsRUFBRSxRQUFtRDtRQUNyRixJQUFHLENBQUMsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVztZQUFFLE9BQU8sT0FBTyxDQUFDLElBQUksQ0FBQyxtQkFBSyxDQUFDLHNCQUFzQixDQUFDLENBQUM7UUFDMUYsTUFBTSxTQUFTLEdBQUcsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUM7UUFDNUUsSUFqQ1Usb0JBQU0sQ0FxQ2c4UyxhQUFjLENBSjM5UyxRQUFRLENBQUMsVUFBVSxFQUFJLFNBQVMsQ0FBQyxVQUFVO1lBQUUsT0FBTztRQUV2RCxJQUFHLFFBQVEsSUFBSSxJQUFJO1lBQUUsUUFBUSxDQUFDLFNBQVMsQ0FBQyxDQUFDO0lBQzdDLENBQUM7Q0FDSjtBQWpDRCxrQ0FpQ0MifQ==","assetPath":"Assets/Zepeto
     Multiplay Component/ZepetoScript/Sample Code/AdditionalSpeed.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"additionalRunSpeed","type":"System.Single","isArray":false,"initValue":["10"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"mscorlib","name":"additionalWalkSpeed","type":"System.Single","isArray":false,"initValue":["10"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"mscorlib","name":"additionalJumpPower","type":"System.Single","isArray":false,"initValue":["10"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"SerializeField","args":[]}]}],"name":"AdditionalSpeed","description":"","hasAnimatorMove":false},"isCompiled":true}'
-  typescriptHash: ff148f968b54518f7f462214b1aa33c7
+  typescriptHash: f95018e91185a5d0a8049ef1714ad2dc
   onlyWriteTrigger: 0

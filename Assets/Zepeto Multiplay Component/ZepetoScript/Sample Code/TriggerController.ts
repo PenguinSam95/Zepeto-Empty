@@ -2,7 +2,7 @@ import { Collider, Transform } from 'UnityEngine';
 import { ZepetoPlayers } from 'ZEPETO.Character.Controller';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
 import GameManager from '../Managers/GameManager';
-import { ERROR, Tags, TriggerType, UIList } from '../Managers/TypeManager';
+import { Callback, ERROR, Tags, TriggerType, UIList } from '../Managers/TypeManager';
 import UIManager from '../Managers/UIManager';
 
 export default class TriggerController extends ZepetoScriptBehaviour {
@@ -16,20 +16,18 @@ export default class TriggerController extends ZepetoScriptBehaviour {
 
 
     @Header("UI properties")
-    @SerializeField() private _uiType: UIList = UIList.NONE;
+    @SerializeField() private readonly _uiType: UIList = UIList.NONE;
     public get uiType() { return this._uiType }
 
 
     /* Touch Collider */
-    OnTriggerEnter(collider: Collider) {
-        if(this.Trigger(collider)) this.SwitchingTriggerEnter();
-    }
-    OnTriggerExit(collider: Collider) {
-        if(this.Trigger(collider)) this.SwitchingTriggerExit();
-    }
-    private Trigger(collider: Collider) {
-        if(!ZepetoPlayers.instance.LocalPlayer) { console.warn(ERROR.NOT_FOUND_LOCAL_PLAYER); return false; }
-        if(collider.CompareTag(Tags.LocalPlayer) || collider.CompareTag(Tags.Trigger)) { return true }
+    OnTriggerEnter(collider: Collider) { this.onTrigger(collider, () => { this.SwitchingTriggerEnter() }) }
+    OnTriggerExit(collider: Collider) { this.onTrigger(collider, () => { this.SwitchingTriggerExit() }) }
+    private onTrigger(collider: Collider, callback?: Callback) {
+        if(!ZepetoPlayers.instance.LocalPlayer) return console.warn(ERROR.NOT_FOUND_LOCAL_PLAYER);
+        if(collider.CompareTag(Tags.LocalPlayer) || collider.CompareTag(Tags.Trigger)) {
+            if(callback != null) callback();
+        }
     }
 
     /* Enter */

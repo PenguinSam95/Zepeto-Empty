@@ -1,5 +1,5 @@
 import { TextMeshProUGUI } from "TMPro";
-import { Animator, BoxCollider, Camera, Coroutine, GameObject, HumanBodyBones, Mathf, ParticleSystem, Transform, Vector3 } from "UnityEngine";
+import { Animator, BoxCollider, Collider, Camera, Coroutine, GameObject, HumanBodyBones, Mathf, ParticleSystem, Transform, Vector3 } from "UnityEngine";
 import { Image, Slider, Text } from "UnityEngine.UI";
 import LookAt from "../Sample Code/LookAt";
 import TransformSyncHelper from "../Transform/TransformSyncHelper";
@@ -334,5 +334,5 @@ Number.prototype.toPercent = function (min:number, max:number): number {
     const size = (max - min) > 0 ? max - min : min - max;
     const num_inSize = target - min;
     const percent = (num_inSize / size) * 100;
-    return Mathf.Clamp(percent, 6, 100);
+    return Mathf.Clamp(percent, 0, 100);
 };

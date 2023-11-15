@@ -236,16 +236,16 @@ export default class GameManager extends ZepetoScriptBehaviour {
     }
 
     /* Local Player Controller Set */
-    public LocalPlayerControllerSet(isEnable:boolean, isJoyConAlso:boolean = true) {
+    public LocalPlayerControllerSet(isEnable:boolean, withJoyCon:boolean = true) {
         if(!this.joyCon) this.joyCon = ZepetoPlayers.instance.gameObject.GetComponentInChildren<UIZepetoPlayerControl>();
         
         /* Controller OFF */
         if(isEnable) {
-            if(isJoyConAlso) this.joyCon.gameObject.SetActive(true);
+            if(withJoyCon) this.joyCon?.gameObject.SetActive(true);
             ZepetoPlayers.instance.controllerData.inputAsset.Enable();
 
         } else {
-            if(isJoyConAlso) this.joyCon.gameObject.SetActive(false);
+            if(withJoyCon) this.joyCon?.gameObject.SetActive(false);
             ZepetoPlayers.instance.controllerData.inputAsset.Disable();
         }
     }

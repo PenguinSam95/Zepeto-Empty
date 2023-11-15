@@ -1,7 +1,7 @@
 import { Collider, GameObject, SpriteRenderer, Transform, WaitForFixedUpdate, WaitForSeconds } from 'UnityEngine';
 import { ZepetoPlayers } from 'ZEPETO.Character.Controller';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
-import { ButtonType, UIList } from '../Managers/TypeManager';
+import { ButtonType, Callback, ERROR, UIList } from '../Managers/TypeManager';
 import UIManager from '../Managers/UIManager';
 import LookAtTrigger from './LookAtTrigger';
 import GameManager from '../Managers/GameManager';
@@ -17,16 +17,16 @@ export default class LookAt extends ZepetoScriptBehaviour {
     // private playerCam: Transform;
     // private wait: WaitForFixedUpdate;
     
-    /* public Properties */
+    /* Accessable Properties */
     @Header("Main properties")
-    @SerializeField() private _buttonType: ButtonType = ButtonType.NULL;
-    @SerializeField() private _scriptTarget: Transform;
+    @SerializeField() private readonly _buttonType: ButtonType = ButtonType.NULL;
+    @SerializeField() private readonly _scriptTarget: Transform;
     public get buttonType() { return this._buttonType; }
     public get scriptTarget() { return this._scriptTarget; }
 
 
     @Header("UI properties")
-    @SerializeField() private _uiType: UIList = UIList.NONE;
+    @SerializeField() private readonly _uiType: UIList = UIList.NONE;
     public get uiType() { return this._uiType }
 
 
@@ -50,46 +50,44 @@ export default class LookAt extends ZepetoScriptBehaviour {
         UIManager.instance.ActivateOpenUI(this.uiType);
     }
 
-    public StartLooking(col : Collider) {
-        if(ZepetoPlayers.instance.LocalPlayer == null) return;
-            
-        this.character = ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.gameObject;
-        if(col.gameObject != this.character) return;
-        
+
+
+    /* Trigger */
+    public StopLooking(collider: Collider) { this.onTrigger(collider, () => { this.onStop(); }); }
+    public StartLooking(collider: Collider) { this.onTrigger(collider, () => { this.onStart(); }); }
+    private onTrigger(collider: Collider, callback?: Callback) {
+        if(!ZepetoPlayers.instance.LocalPlayer) return console.warn(ERROR.NOT_FOUND_LOCAL_PLAYER);
+        const character = ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.gameObject;
+        if(collider.gameObject != character) return;
+
+        if(callback != null) callback();
+    }
+
+
+
+    /* Remote Trigger Action */
+    public RemoteStopLooking() {this.onStop(); }
+    public RemoteStartLooking() {
+        if(!ZepetoPlayers.instance.LocalPlayer) return;
+        this.trigger.isInTrigger ? this.onStart() : this.onStop();
+    }
+
+
+
+    private onStart() {
         if(this.collider) this.collider.enabled = true;
         if(this.renderer) this.renderer.enabled = true;
+        this.StopCoroutine(this.LookAtLocalPlayer());
         this.StartCoroutine(this.LookAtLocalPlayer());
     }
-    
-    public StopLooking(col : Collider) {
-        if(col.gameObject != this.character) return;
-
-        if(this.renderer) this.renderer.enabled = false;
+    private onStop() {
         if(this.collider) this.collider.enabled = false;
-        this.isLooking = false;
-        this.StopCoroutine(this.LookAtLocalPlayer());
-    }
-
-    public RemoteStartLooking() {
-        if(ZepetoPlayers.instance.LocalPlayer == null) return;
-        
-        if(this.trigger.isInTrigger) {
-            if(this.collider) this.collider.enabled = true;
-            if(this.renderer) this.renderer.enabled = true;
-            this.StopCoroutine(this.LookAtLocalPlayer());
-            this.StartCoroutine(this.LookAtLocalPlayer());
-            
-        } else {
-            this.RemoteStopLooking();
-        }
-    }
-
-    public RemoteStopLooking() {
         if(this.renderer) this.renderer.enabled = false;
-        if(this.collider) this.collider.enabled = false;
-        this.isLooking = false;
         this.StopCoroutine(this.LookAtLocalPlayer());
+        this.isLooking = false;
     }
+
+
 
     /* Locking Script */
     private * LookAtLocalPlayer() {

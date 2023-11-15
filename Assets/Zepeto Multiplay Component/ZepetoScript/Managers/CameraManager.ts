@@ -32,7 +32,7 @@ export default class CameraManager extends ZepetoScriptBehaviour {
         }
     }
 
-    Raycasting() {
+    private Raycasting() {
         if(this.isRaycasting) return;
         this.isRaycasting = true;
         // iphone 이슈

@@ -48,7 +48,7 @@ export default class PlayerSync extends ZepetoScriptBehaviour {
 
     // !isLocal(other player)
     private OnChangedPlayer() {
-        if (this.isLocal) return
+        if (this.isLocal) return;
         const animationParam = this.player.animationParam;
         const animator = this._animator;
         animator.SetInteger(Anim.State, animationParam.State);
