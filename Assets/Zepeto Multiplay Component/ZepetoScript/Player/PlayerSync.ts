@@ -35,7 +35,7 @@ export default class PlayerSync extends ZepetoScriptBehaviour {
         this._animator = this.transform.GetComponentInChildren<Animator>();
         this._multiplay = Object.FindObjectOfType<ZepetoWorldMultiplay>();
         this._room = this._multiplay.Room;
-        console.log(` **************** isLocal? ${this.isLocal} `);
+        console.log(`[PlayerSync] ${this._room.SessionId} is ${this.isLocal ? "LocalPlayer" : "OtherPlayer"} `);
         if (this.isLocal) {
             this.StartCoroutine(this.SendLocalPlayer(this._tick));
 

@@ -85,7 +85,7 @@ export default class GameManager extends ZepetoScriptBehaviour {
             
             /** PoseAnimation **/
             this.room.AddMessageHandler(MESSAGE.Pose, (message:any) => {
-                this.poseAnimationManager.SwitchPoseData(message);
+                this.poseAnimationManager?.SwitchPoseData(message);
             });
         }
 
