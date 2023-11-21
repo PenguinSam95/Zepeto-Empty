@@ -1,0 +1,64 @@
+fileFormatVersion: 2
+guid: 1a1f6a806c0d25b419b29429fb05c381
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Character_Controller_1 = require(\"ZEPETO.Character.Controller\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst TypeManager_1 = require(\"../Managers/TypeManager\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst NPCController_1 = require(\"./NPCController\");\r\nclass
+    NPCManager extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor()
+    {\r\n        super(...arguments);\r\n        /* Properties */\r\n        /**
+    NPC Controllers **/\r\n        this.npcIds = [];\r\n        this.npcControllers
+    = [];\r\n    }\r\n    static get instance() {\r\n        if (this._instance ===
+    null) {\r\n            this._instance = UnityEngine_1.GameObject.FindObjectOfType($typeof(NPCManager));\r\n           
+    if (this._instance === null) {\r\n                this._instance = new UnityEngine_1.GameObject(NPCManager.name).AddComponent($typeof(NPCManager));\r\n           
+    }\r\n        }\r\n        return this._instance;\r\n    }\r\n    set npcController(value)
+    { this.npcControllers.push(value); }\r\n    GetNPCs(npcNum) {\r\n        const
+    controllers = [];\r\n        for (const item of this.npcControllers) {\r\n           
+    if (item.npcNum == npcNum)\r\n                controllers.push(item);\r\n       
+    }\r\n        return controllers;\r\n    }\r\n    /*** Main Script ***/\r\n   
+    Awake() {\r\n        if (NPCManager._instance !== null && NPCManager._instance
+    !== this) {\r\n            UnityEngine_1.GameObject.Destroy(this.gameObject);\r\n       
+    }\r\n        else {\r\n            NPCManager._instance = this;\r\n           
+    UnityEngine_1.GameObject.DontDestroyOnLoad(this.gameObject);\r\n        }\r\n   
+    }\r\n    /* NPC Controller */\r\n    SpawnNPC(controller, callback) {\r\n       
+    /* Set Position */\r\n        const spawnPoint = new ZEPETO_Character_Controller_1.SpawnInfo();\r\n       
+    spawnPoint.position = controller.transform.position;\r\n        spawnPoint.rotation
+    = controller.transform.rotation;\r\n        const npcId = this.SwitchingId(controller.npcNum);\r\n       
+    console.log(`[NPCManager] npcId : ${npcId}`);\r\n        ZEPETO_Character_Controller_1.ZepetoCharacterCreator.CreateByZepetoId(npcId,
+    spawnPoint, (character) => {\r\n            character.transform.SetParent(controller.transform);\r\n           
+    this.SetNPCLayer(character.transform);\r\n            this.npcController = controller;\r\n           
+    if (callback != null)\r\n                callback();\r\n        });\r\n    }\r\n   
+    /* Number to Id */\r\n    SwitchingId(npcNum) {\r\n        if (!this.npcIds ||
+    this.npcIds.length == 0)\r\n            this.ParseToNPCIds();\r\n        if (npcNum
+    < 0 || npcNum >= this.npcIds.length)\r\n            return null;\r\n        return
+    this.npcIds[npcNum];\r\n    }\r\n    /* Enum to NPCIds Array */\r\n    ParseToNPCIds()
+    {\r\n        const values = Object.keys(TypeManager_1.NPC_ID);\r\n        const
+    keys = values.map(key => TypeManager_1.NPC_ID[key]);\r\n        keys.splice(keys.length,
+    1);\r\n        this.npcIds = keys;\r\n    }\r\n    /* Set NPC Layer */\r\n   
+    SetNPCLayer(transform) {\r\n        if (!transform)\r\n            return;\r\n       
+    transform.gameObject.layer = TypeManager_1.LAYER.NPC;\r\n        for (let i =
+    0; i < transform.childCount; i++) {\r\n            const child = transform.GetChild(i);\r\n           
+    this.SetNPCLayer(child);\r\n        }\r\n    }\r\n    /* GameManager */\r\n   
+    RemoteStart(callback) {\r\n        if (callback != null)\r\n            callback();\r\n   
+    }\r\n}\r\nexports.default = NPCManager;\r\n/* Singleton */\r\nNPCManager._instance
+    = null;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTlBDTWFuYWdlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIk5QQ01hbmFnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2RUFBaUc7QUFDakcsaURBQXFEO0FBQ3JELHlEQUF3RTtBQUN4RSw2Q0FBK0Q7QUFDL0QsbURBQTRDO0FBRTVDLE1BQXFCLFVBQVcsU0FBUSxxQ0FBcUI7SUFBN0Q7O1FBY0ksZ0JBQWdCO1FBQ2hCLHVCQUF1QjtRQUNmLFdBQU0sR0FBYSxFQUFFLENBQUM7UUFDdEIsbUJBQWMsR0FBb0IsRUFBRSxDQUFDO0lBK0VqRCxDQUFDO0lBNUZVLE1BQU0sS0FBSyxRQUFRO1FBQ3RCLElBQUksSUFBSSxDQUFDLFNBQVMsS0FBSyxJQUFJLEVBQUU7WUFDekIsSUFBSSxDQUFDLFNBQVMsR0FBRyx3QkFBVSxDQUFDLGdCQUFnQixTQUFDLFVBQVUsRUFBRyxDQUFDO1lBQzNELElBQUksSUFBSSxDQUFDLFNBQVMsS0FBSyxJQUFJLEVBQUU7Z0JBQ3pCLElBQUksQ0FBQyxTQUFTLEdBQUcsSUFBSSx3QkFBVSxDQUFDLFVBQVUsQ0FBQyxJQUFJLENBQUMsQ0FBQyxZQUFZLFNBQUMsVUFBVSxFQUFHLENBQUM7YUFDL0U7U0FDSjtRQUNELE9BQU8sSUFBSSxDQUFDLFNBQVMsQ0FBQztJQUMxQixDQUFDO0lBTUQsSUFBWSxhQUFhLENBQUMsS0FBb0IsSUFBSSxJQUFJLENBQUMsY0FBYyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUM7SUFDN0UsT0FBTyxDQUFDLE1BQVk7UUFDdkIsTUFBTSxXQUFXLEdBQUcsRUFBRSxDQUFDO1FBQ3ZCLEtBQUksTUFBTSxJQUFJLElBQUksSUFBSSxDQUFDLGNBQWMsRUFBRTtZQUNuQyxJQUFHLElBQUksQ0FBQyxNQUFNLElBQUksTUFBTTtnQkFBRSxXQUFXLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO1NBQ3BEO1FBQ0QsT0FBTyxXQUFXLENBQUM7SUFDdkIs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","assetPath":"Assets/Zepeto
+    Multiplay Component/ZepetoScript/Player/NPCManager.ts","manifest":{"properties":[],"name":"NPCManager","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 3af924a001b57794b196abf72f7f2ec4
+  onlyWriteTrigger: 0

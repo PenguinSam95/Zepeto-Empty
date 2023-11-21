@@ -1,0 +1,34 @@
+fileFormatVersion: 2
+guid: c569ba26c3b684441a2e838acf17a904
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    TypeManager_1 = require(\"../Managers/TypeManager\");\r\nconst NPCManager_1 =
+    require(\"./NPCManager\");\r\nclass NPCController extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\r\n    constructor() {\r\n        super(...arguments);\r\n        /* Properties
+    */\r\n        this._npcNum = TypeManager_1.NPCs.NONE;\r\n        this._npcType
+    = TypeManager_1.NPCType.Default;\r\n    }\r\n    get npcNum() { return this._npcNum;
+    }\r\n    get npcType() { return this._npcType; }\r\n    set npcType(value) {
+    this._npcType = value; }\r\n    /* Spawn NPC */\r\n    Start() {\r\n        NPCManager_1.default.instance.SpawnNPC(this,
+    () => {\r\n            //\r\n        });\r\n    }\r\n}\r\nexports.default = NPCController;\r\n//#
+    sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTlBDQ29udHJvbGxlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIk5QQ0NvbnRyb2xsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSxpREFBcUQ7QUFDckQseURBQXdEO0FBQ3hELDZDQUFzQztBQUd0QyxNQUFxQixhQUFjLFNBQVEscUNBQXFCO0lBQWhFOztRQUVJLGdCQUFnQjtRQUNVLFlBQU8sR0FBUyxrQkFBSSxDQUFDLElBQUksQ0FBQztRQUMxQixhQUFRLEdBQVkscUJBQU8sQ0FBQyxPQUFPLENBQUM7SUFhbEUsQ0FBQztJQVpHLElBQVcsTUFBTSxLQUFXLE9BQU8sSUFBSSxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUM7SUFDbEQsSUFBVyxPQUFPLEtBQWMsT0FBTyxJQUFJLENBQUMsUUFBUSxDQUFDLENBQUMsQ0FBQztJQUN2RCxJQUFZLE9BQU8sQ0FBQyxLQUFhLElBQUksSUFBSSxDQUFDLFFBQVEsR0FBRyxLQUFLLENBQUMsQ0FBQyxDQUFDO0lBRzdELGVBQWU7SUFDUCxLQUFLO1FBQ1Qsb0JBQVUsQ0FBQyxRQUFRLENBQUMsUUFBUSxDQUFDLElBQUksRUFBRSxHQUFHLEVBQUU7WUFDcEMsRUFBRTtRQUNOLENBQUMsQ0FBQyxDQUFDO0lBQ1AsQ0FBQztDQUVKO0FBakJELGdDQWlCQyJ9","assetPath":"Assets/Zepeto
+    Multiplay Component/ZepetoScript/Player/NPCController.ts","manifest":{"properties":[{"assembly":"","name":"_npcNum","type":"NPCs","isArray":false,"initValue":["NONE"],"enumKeys":["NONE","Sample","Dummy"],"enumValues":["-1","0","1"],"attributes":[{"name":"SerializeField","args":[]}]},{"assembly":"","name":"_npcType","type":"NPCType","isArray":false,"initValue":["Default"],"enumKeys":["Default"],"enumValues":["0"],"attributes":[{"name":"SerializeField","args":[]}]}],"name":"NPCController","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 1833776251e345c8f30dbb107cb447c4
+  onlyWriteTrigger: 0

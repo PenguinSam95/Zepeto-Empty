@@ -120,6 +120,25 @@ export enum UIList {
 }
 
 
+//////////////////////////////////////////////// About NPC Manager
+
+/* NPC List */
+export enum NPCs {
+    NONE = -1,
+    Sample = 0,
+    Dummy = 1,
+}
+export enum NPCType {
+    Default,
+    // HelloNPC, NewsNPC, DanceNPC, Hall_InfoNPC, PortalNPC, MiniGameNPC,
+}
+
+export enum NPC_ID {
+    Sample = "metalgeni.mbz",
+    Dummy = "deep95",
+}
+
+
 
 
 //////////////////////////////////////////////// Others

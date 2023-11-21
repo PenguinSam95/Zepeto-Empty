@@ -14,6 +14,7 @@ import ToastManager from './ToastManager';
 import { Anim, ButtonType, Callback, CameraOffset, Datas, ERROR, LoadingType, MESSAGE, SendName, TOAST_MESSAGE, XXXState } from './TypeManager';
 import { LanguageType } from '../Lang/TranslateManager';
 import UIManager from './UIManager';
+import NPCManager from '../Player/NPCManager';
 
 export default class GameManager extends ZepetoScriptBehaviour {
     
@@ -142,6 +143,10 @@ export default class GameManager extends ZepetoScriptBehaviour {
                     /* Remote Start */
                     UIManager.instance.RemoteStart(() => {
                         console.log(`[GameManager] UIManager loaded success`);
+                    });
+
+                    NPCManager.instance.RemoteStart(() => {
+                        console.log(`[GameManager] NPCManager loaded success`);
                     });
 
                     const poseAnimationManager = this._poseAnimationManager?.GetComponent<PoseAnimationManager>();
