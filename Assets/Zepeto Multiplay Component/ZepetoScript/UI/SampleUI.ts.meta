@@ -1,0 +1,34 @@
+fileFormatVersion: 2
+guid: f5179ce424fee014f913cf50bd221294
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    UIActivator_1 = require(\"./UIActivator\");\r\nclass SampleUI extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\r\n    Start() {\r\n        const activator = this.transform.GetComponent($typeof(UIActivator_1.default));\r\n       
+    activator.xCallback = () => {\r\n            console.log(`activator.xCallback`);\r\n       
+    };\r\n        activator.yCallback = () => {\r\n            console.log(`activator.yCallback`);\r\n       
+    };\r\n        activator.nCallback = () => {\r\n            console.log(`activator.nCallback`);\r\n       
+    };\r\n        activator._xButton?.onClick.AddListener(() => { console.log(`activator._xButton`);
+    });\r\n        activator._yButton?.onClick.AddListener(() => { console.log(`activator._yButton`);
+    });\r\n        activator._nButton?.onClick.AddListener(() => { console.log(`activator._nButton`);
+    });\r\n    }\r\n}\r\nexports.default = SampleUI;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiU2FtcGxlVUkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJTYW1wbGVVSS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLGlEQUFxRDtBQUNyRCwrQ0FBd0M7QUFFeEMsTUFBcUIsUUFBUyxTQUFRLHFDQUFxQjtJQUV2RCxLQUFLO1FBQ0QsTUFBTSxTQUFTLEdBQUcsSUFBSSxDQUFDLFNBQVMsQ0FBQyxZQUFZLFNBQUMscUJBQVcsRUFBRyxDQUFDO1FBRTdELFNBQVMsQ0FBQyxTQUFTLEdBQUcsR0FBRyxFQUFFO1lBQ3ZCLE9BQU8sQ0FBQyxHQUFHLENBQUMscUJBQXFCLENBQUMsQ0FBQztRQUN2QyxDQUFDLENBQUE7UUFFRCxTQUFTLENBQUMsU0FBUyxHQUFHLEdBQUcsRUFBRTtZQUN2QixPQUFPLENBQUMsR0FBRyxDQUFDLHFCQUFxQixDQUFDLENBQUM7UUFDdkMsQ0FBQyxDQUFBO1FBRUQsU0FBUyxDQUFDLFNBQVMsR0FBRyxHQUFHLEVBQUU7WUFDdkIsT0FBTyxDQUFDLEdBQUcsQ0FBQyxxQkFBcUIsQ0FBQyxDQUFDO1FBQ3ZDLENBQUMsQ0FBQTtRQUVELFNBQVMsQ0FBQyxRQUFRLEVBQUUsT0FBTyxDQUFDLFdBQVcsQ0FBQyxHQUFHLEVBQUUsR0FBRyxPQUFPLENBQUMsR0FBRyxDQUFDLG9CQUFvQixDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQztRQUN0RixTQUFTLENBQUMsUUFBUSxFQUFFLE9BQU8sQ0FBQyxXQUFXLENBQUMsR0FBRyxFQUFFLEdBQUcsT0FBTyxDQUFDLEdBQUcsQ0FBQyxvQkFBb0IsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUM7UUFDdEYsU0FBUyxDQUFDLFFBQVEsRUFBRSxPQUFPLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRSxHQUFHLE9BQU8sQ0FBQyxHQUFHLENBQUMsb0JBQW9CLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO0lBQzFGLENBQUM7Q0FFSjtBQXRCRCwyQkFzQkMifQ==","assetPath":"Assets/Zepeto
+    Multiplay Component/ZepetoScript/UI/SampleUI.ts","manifest":{"properties":[],"name":"SampleUI","description":"","hasAnimatorMove":false},"isCompiled":true}'
+  typescriptHash: 18296a7038fb46712cef8c41dcf36155
+  onlyWriteTrigger: 0

@@ -134,13 +134,14 @@ export default class UIManager extends ZepetoScriptBehaviour {
     }
     
     /* UI Deactivate */
-    public DeactiveOpenUI(uiType: UIList) {
+    public DeactiveOpenUI(uiType: UIList, isSilent:boolean = false) {
         const activator = this.GetUIActivator(uiType);
         if(this.openUI && this.openUI == activator?.UIObject) {
             this.openUI.SetActive(false);
             this._openUI = null;
 
             // LookAt Deactivate
+            if(isSilent) return true;
             for(const lookAt of this.UILookAts) {
                 this.LookAtActivator(lookAt)
             }

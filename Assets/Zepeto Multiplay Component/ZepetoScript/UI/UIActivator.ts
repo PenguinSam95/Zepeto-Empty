@@ -3,7 +3,7 @@ import { Button } from 'UnityEngine.UI';
 import { ZepetoScriptBehaviour } from 'ZEPETO.Script'
 import LookAt from '../Sample Code/LookAt';
 import UIManager from '../Managers/UIManager';
-import { UIList } from '../Managers/TypeManager';
+import { UIList, Callback } from '../Managers/TypeManager';
 
 export default class UIActivator extends ZepetoScriptBehaviour {
 
@@ -19,14 +19,18 @@ export default class UIActivator extends ZepetoScriptBehaviour {
 
     /* Set Properties */
     @Header("Set Properties")
-    @SerializeField() private buttonObjects: GameObject[] = [];
     @SerializeField() private yButton_isActiveClose: boolean = false;
     @SerializeField() private nButton_isActiveClose: boolean = false;
-    private lookAts: LookAt[] = [];
 
     public get UIObject(): GameObject { return this.frame?.gameObject; }
+    public get _xButton(): Button { return this.closeButton; }
     public get _yButton(): Button { return this.yButton; }
     public get _nButton(): Button { return this.nButton; }
+    public xCallback: Callback = () => {};
+    public yCallback: Callback = () => {};
+    public nCallback: Callback = () => {};
+
+    public isSilentlyClose : bool  = false;
 
     Start() {
         /* Init UIs */
@@ -46,14 +50,31 @@ export default class UIActivator extends ZepetoScriptBehaviour {
     }
 
     private SetDefaultButtons() {
-        for(const button of this.buttonObjects) { this.lookAts.push(button.GetComponent<LookAt>()); }
-        this.closeButton?.onClick.AddListener(() => { this.CloseUI(); });
-        this.yButton?.onClick.AddListener(() => { if(this.yButton_isActiveClose) this.CloseUI(); });
-        this.nButton?.onClick.AddListener(() => { if(this.nButton_isActiveClose) this.CloseUI(); });
+        this.closeButton?.onClick.AddListener(() => { this.CloseButton() });
+        this.yButton?.onClick.AddListener(() => { this.YesButton() });
+        this.nButton?.onClick.AddListener(() => { this.NoButton() });
     }
 
-    private CloseUI() {
-        UIManager.instance.DeactiveOpenUI(this.uiType);
+    private CloseUI() {        
+        UIManager.instance.DeactiveOpenUI(this.uiType, this.isSilentlyClose);
+    }
+
+
+    private CloseButton() {
+        this.xCallback();
+        this.CloseUI();
+    }
+
+
+    private YesButton() {
+        this.yCallback();
+        if(this.yButton_isActiveClose) this.CloseUI();
+    }
+
+
+    private NoButton() {
+        this.nCallback();
+        if(this.nButton_isActiveClose) this.CloseUI();
     }
 
 

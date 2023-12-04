@@ -1745,17 +1745,40 @@ PrefabInstance:
       value: Sample-UI
       objectReference: {fileID: 0}
     - target: {fileID: 8009911504196229981, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
-      propertyPath: script.values.Array.data[5]
-      value: '{"type":"System.Int32, mscorlib","value":"1"}'
+      propertyPath: script.keys.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009911504196229981, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
+      propertyPath: script.values.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009911504196229981, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
+      propertyPath: script.keys.Array.data[6]
+      value: xCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009911504196229981, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
+      propertyPath: script.keys.Array.data[9]
+      value: yCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009911504196229981, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
+      propertyPath: script.keys.Array.data[10]
+      value: nCallback
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009911504196229981, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
+      propertyPath: script.keys.Array.data[11]
+      value: isSilentlyClose
       objectReference: {fileID: 0}
     - target: {fileID: 8009911504196229981, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
       propertyPath: script.values.Array.data[6]
-      value: '{"type":"ZEPETO.Script.ZepetoScriptSerializer+ArrayInfo, ZEPETO.Script","value":"{\"offset\":0,\"length\":0,\"type\":\"UnityEngine.Object,
-        UnityEngine.CoreModule\",\"isUnity\":true}"}'
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8009911504813251049, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 8009911504196229981, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
+      propertyPath: script.values.Array.data[11]
+      value: '{"type":"System.Boolean, mscorlib","value":"False"}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009911504196229981, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
+      propertyPath: script.unityValues.Array.size
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60da3659e6244c74e930ef2ebbb92884, type: 3}
